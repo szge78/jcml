@@ -8,7 +8,9 @@ import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
 import org.apache.cxf.endpoint.ServerRegistry;
+import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
+import org.apache.cxf.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,6 +76,7 @@ public class CxfServletRegistrar implements ApplicationEventListener<ServerStart
             factory.setServiceClass(ReportWebService.class);
             factory.setServiceBean(reportWebService);
             factory.setAddress(address);
+            factory.getOutInterceptors().add((Interceptor<? extends Message>) new Utf8EncodingInterceptor());
             factory.create();
             log.info("SOAP endpoint published at:  {}", address);
             log.info("WSDL available at:           {}?wsdl", address);

@@ -63,8 +63,8 @@ public class BinaryMessageDeserializer {
 //        result.put("_schemaName", schema.messageType());
 //        result.putPOJO("_dbMetadata", dbMetadata); // this is just lazily storin the Java object.
         result.set("_dbMetadata", objectMapper.valueToTree(dbMetadata));
-        result.put("_db_localDateTime", dbMetadata.get("localDateTime") != null
-                ? dbMetadata.get("localDateTime").toString() : "");
+//        result.put("_db_localDateTime", dbMetadata.get("localDateTime") != null
+//                ? dbMetadata.get("localDateTime").toString() : "");
 
         // Read 6-integer header
         // always present regardless of schema

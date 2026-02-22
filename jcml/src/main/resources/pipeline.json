@@ -197,13 +197,13 @@
           {
             "condition": "_messageType.in('FIRST')",
             "templates": {
-              "_full_description": "FIRST"
+              "_full_description": "Začátek transakce cmlId: {{item._header[1]}} dt: {{item._dbMetadata.dateTime}}"
             }
           },
           {
             "condition": "_messageType.in('LAST')",
             "templates": {
-              "_full_description": "LAST"
+              "_full_description": "Ukončení transakce cmlId: {{item._header[1]}} dt: {{item._dbMetadata.dateTime}}"
             }
           },
           {
