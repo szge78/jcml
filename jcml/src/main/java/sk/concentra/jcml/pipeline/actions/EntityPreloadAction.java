@@ -44,7 +44,7 @@ public class EntityPreloadAction implements PipelineAction {
         String sessionKey         = (String) sessionContext.get(SESSION_KEY_KEY);
         String entityClassName    = params.path("entityClassName").asText(null);
         String repositoryClassName = params.path("repositoryClassName").asText(null);
-        String contextKey         = params.path("contextKey").asText(null);
+        String contextKey         = params.path("sessionContextKey").asText(null);
 
         if (entityClassName == null || entityClassName.isBlank()) {
             throw new IllegalArgumentException("[" + sessionKey + "] Missing or empty 'entityClassName' in params");
@@ -74,7 +74,8 @@ public class EntityPreloadAction implements PipelineAction {
 
             // Use reflection — repository may extend any Micronaut Data interface
             // (CrudRepository, GenericRepository, JpaRepository, etc.)
-            Iterable<?> allEntities = (Iterable<?>) repoClass.getMethod("findAll").invoke(repo);
+            String finderMethod = params.path("finderMethod").asText("findAll");
+            Iterable<?> allEntities = (Iterable<?>) repoClass.getMethod(finderMethod).invoke(repo);
 
             ConcurrentHashMap<Object, Object> entityMap = new ConcurrentHashMap<>();
             List<Object> entityList = new ArrayList<>();

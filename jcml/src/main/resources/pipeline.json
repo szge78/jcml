@@ -7,7 +7,7 @@
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.Agent",
         "repositoryClassName": "sk.concentra.jcml.persistence.AgentRepository",
-        "contextKey": "agents"
+        "sessionContextKey": "agents"
       }
     },
     {
@@ -17,7 +17,7 @@
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.AgentTeam",
         "repositoryClassName": "sk.concentra.jcml.persistence.AgentTeamRepository",
-        "contextKey": "agentTeams"
+        "sessionContextKey": "agentTeams"
       }
     },
     {
@@ -27,7 +27,7 @@
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.Attribute",
         "repositoryClassName": "sk.concentra.jcml.persistence.AttributeRepository",
-        "contextKey": "attributes"
+        "sessionContextKey": "attributes"
       }
     },
     {
@@ -37,7 +37,7 @@
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.SkillGroup",
         "repositoryClassName": "sk.concentra.jcml.persistence.SkillGroupRepository",
-        "contextKey": "skillGroups"
+        "sessionContextKey": "skillGroups"
       }
     },
     {
@@ -47,7 +47,7 @@
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.PrecisionQueue",
         "repositoryClassName": "sk.concentra.jcml.persistence.PrecisionQueueRepository",
-        "contextKey": "precisionQueues"
+        "sessionContextKey": "precisionQueues"
       }
     },
     {
@@ -57,7 +57,7 @@
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.Campaign",
         "repositoryClassName": "sk.concentra.jcml.persistence.CampaignRepository",
-        "contextKey": "campaigns"
+        "sessionContextKey": "campaigns"
       }
     },
     {
@@ -67,7 +67,17 @@
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.DialingMode",
         "repositoryClassName": "sk.concentra.jcml.persistence.DialingModeRepository",
-        "contextKey": "dialingModes"
+        "sessionContextKey": "dialingModes"
+      }
+    },
+    {
+      "name": "PreloadAllPrecisionQueueSteps",
+      "className": "sk.concentra.jcml.pipeline.actions.NativeSqlPreloadAction",
+      "enabled": true,
+      "params": {
+        "sessionContextKey": "precisionQueueSteps",
+        "nativeSql": "SELECT PrecisionQueueStepID, PrecisionQueueID, StepOrder, WaitTime, ConsiderIf, NextStep, Description FROM Precision_Queue_Step",
+        "idColumn": "PrecisionQueueStepID"
       }
     },
     {
