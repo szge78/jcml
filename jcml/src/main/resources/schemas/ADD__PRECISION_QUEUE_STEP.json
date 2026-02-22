@@ -1,0 +1,13 @@
+{
+  "messageType": "ADD__PRECISION_QUEUE_STEP",
+  "version": 1,
+  "fields": [
+    {
+      "name": "addPrecisionQueueStepItems",
+      "type": "OBJECT",
+      "isArray": true,
+      "nestedSchema": "ADD__PRECISION_QUEUE_STEP_ITEM",
+      "description": "Array of items"
+    }
+  ]
+}

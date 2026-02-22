@@ -1,0 +1,13 @@
+{
+  "messageType": "ADD__AGENT",
+  "version": 1,
+  "fields": [
+    {
+      "name": "addAgentItems",
+      "type": "OBJECT",
+      "isArray": true,
+      "nestedSchema": "ADD__AGENT_ITEM",
+      "description": "Array of items"
+    }
+  ]
+}

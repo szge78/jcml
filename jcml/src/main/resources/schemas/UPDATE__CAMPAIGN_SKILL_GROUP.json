@@ -1,0 +1,132 @@
+{
+  "messageType": "UPDATE__CAMPAIGN_SKILL_GROUP",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "objectAccessLevel"
+    },
+    {
+      "name": "campaignID",
+      "type": "INTEGER",
+      "description": "campaignID"
+    },
+    {
+      "name": "skillTargetID",
+      "type": "INTEGER",
+      "description": "skillTargetID"
+    },
+    {
+      "name": "overflowAgents",
+      "type": "INTEGER",
+      "description": "overflowAgents"
+    },
+    {
+      "name": "reservationPercentage",
+      "type": "INTEGER",
+      "description": "reservationPercentage"
+    },
+    {
+      "name": "autoAnswerReservationCall",
+      "type": "INTEGER",
+      "description": "autoAnswerReservationCall"
+    },
+    {
+      "name": "recordsToCache",
+      "type": "INTEGER",
+      "description": "recordsToCache"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "changeStamp"
+    },
+    {
+      "name": "iVRPorts",
+      "type": "INTEGER",
+      "description": "iVRPorts"
+    },
+    {
+      "name": "futureUseInt1",
+      "type": "INTEGER",
+      "description": "futureUseInt1"
+    },
+    {
+      "name": "futureUseInt2",
+      "type": "INTEGER",
+      "description": "futureUseInt2"
+    },
+    {
+      "name": "futureUseInt3",
+      "type": "INTEGER",
+      "description": "futureUseInt3"
+    },
+    {
+      "name": "futureUseInt4",
+      "type": "INTEGER",
+      "description": "futureUseInt4"
+    },
+    {
+      "name": "futureUseInt5",
+      "type": "INTEGER",
+      "description": "futureUseInt5"
+    },
+    {
+      "name": "dialingMode",
+      "type": "SHORT",
+      "description": "dialingMode"
+    },
+    {
+      "name": "unknown1",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "unknown2",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "iVRRoutePoint",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "IVRRoutePoint"
+    },
+    {
+      "name": "configParam",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "ConfigParam"
+    },
+    {
+      "name": "abandonedRoutePoint",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "abandonedRoutePoint"
+    },
+    {
+      "name": "dialedNumber",
+      "type": "STRING",
+      "description": "dialedNumber"
+    },
+    {
+      "name": "FutureUseVarchar1",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarchar1"
+    },
+    {
+      "name": "FutureUseVarchar2",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarchar2"
+    },
+    {
+      "name": "FutureUseVarchar3",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarchar3"
+    }
+  ]
+}

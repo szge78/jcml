@@ -1,0 +1,13 @@
+{
+  "messageType": "DELETE__SKILL_GROUP_MEMBER",
+  "version": 1,
+  "fields": [
+    {
+      "name": "deleteSkillGroupMemberItems",
+      "isArray": true,
+      "type": "OBJECT",
+      "nestedSchema": "DELETE__SKILL_GROUP_MEMBER_ITEM",
+      "description": "array of items"
+    }
+  ]
+}

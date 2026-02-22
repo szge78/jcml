@@ -1,0 +1,68 @@
+{
+  "messageType": "ADD__PRECISION_QUEUE_STEP_ITEM",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "ObjectAccessLevel"
+    },
+    {
+      "name": "precisionQueueID",
+      "type": "INTEGER",
+      "description": "PrecisionQueueID"
+    },
+    {
+      "name": "precisionQueueStepID",
+      "type": "INTEGER",
+      "description": "PrecisionQueueStepID"
+    },
+    {
+      "name": "stepOrder",
+      "type": "INTEGER",
+      "description": "StepOrder"
+    },
+    {
+      "name": "waitTime",
+      "type": "INTEGER",
+      "description": "WaitTime"
+    },
+    {
+      "name": "nextStep",
+      "type": "CHAR",
+      "description": "NextStep"
+    },
+    {
+      "name": "unknown1",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "unknown2",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "unknown3",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    },
+    {
+      "name": "considerIf",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "ConsiderIf"
+    },
+    {
+      "name": "description",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "Description"
+    }
+  ]
+}

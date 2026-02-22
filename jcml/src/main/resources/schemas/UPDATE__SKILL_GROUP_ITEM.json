@@ -1,0 +1,148 @@
+{
+  "messageType": "UPDATE__SKILL_GROUP_ITEM",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "ObjectAccessLevel"
+    },
+    {
+      "name": "skillTargetID",
+      "type": "INTEGER",
+      "description": "SkillTargetID"
+    },
+    {
+      "name": "peripheralNumber",
+      "type": "INTEGER",
+      "stringPadding": "ALIGN_4",
+      "description": "PeripheralNumber"
+    },
+    {
+      "name": "peripheralID",
+      "type": "SHORT",
+      "description": "PeripheralID"
+    },
+    {
+      "name": "serviceLevelType",
+      "type": "SHORT",
+      "description": "ServiceLevelType"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    },
+    {
+      "name": "baseSkillTargetID",
+      "type": "INTEGER",
+      "description": "BaseSkillTargetID"
+    },
+    {
+      "name": "availableHoldoffDelay",
+      "type": "INTEGER",
+      "description": "AvailableHoldoffDelay"
+    },
+    {
+      "name": "subGroupMaskType",
+      "type": "SHORT",
+      "description": "SubGroupMaskType"
+    },
+    {
+      "name": "scheduleID",
+      "type": "SHORT",
+      "description": "ScheduleID"
+    },
+    {
+      "name": "mrDomainID",
+      "type": "INTEGER",
+      "description": "MRDomainID"
+    },
+    {
+      "name": "ipta",
+      "type": "CHAR",
+      "description": "IPTA"
+    },
+    {
+      "name": "userDeletable",
+      "type": "CHAR",
+      "description": "UserDeletable"
+    },
+    {
+      "name": "deleted",
+      "type": "CHAR",
+      "description": "Deleted"
+    },
+    {
+      "name": "priority",
+      "type": "CHAR",
+      "description": "Priority"
+    },
+    {
+      "name": "serviceLevelThreshold",
+      "type": "INTEGER",
+      "description": "ServiceLevelThreshold"
+    },
+    {
+      "name": "defaultEntry",
+      "type": "INTEGER",
+      "description": "DefaultEntry"
+    },
+    {
+      "name": "bucketIntervalID",
+      "type": "INTEGER",
+      "description": "BucketIntervalID"
+    },
+    {
+      "name": "precisionQueueID",
+      "type": "INTEGER",
+      "description": "PrecisionQueueID"
+    },
+    {
+      "name": "departmentID",
+      "type": "INTEGER",
+      "description": "DepartmentID"
+    },
+    {
+      "name": "dateTimeStamp",
+      "type": "LONG",
+      "description": "DateTimeStamp"
+    },
+    {
+      "name": "enterpriseName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "EnterpriseName"
+    },
+    {
+      "name": "peripheralName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "PeripheralName"
+    },
+    {
+      "name": "description",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "Description"
+    },
+    {
+      "name": "extension",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "Extension"
+    },
+    {
+      "name": "subSkillGroupMask",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "SubSkillGroupMask"
+    },
+    {
+      "name": "configParam",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "ConfigParam"
+    }
+  ]
+}

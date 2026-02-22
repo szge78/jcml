@@ -1,0 +1,111 @@
+{
+  "messageType": "UPDATE__QUERY_RULE",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "objectAccessLevel"
+    },
+    {
+      "name": "queryRuleID",
+      "type": "INTEGER",
+      "description": "queryRuleID"
+    },
+    {
+      "name": "importRuleID",
+      "type": "INTEGER",
+      "description": "importRuleID"
+    },
+    {
+      "name": "deleted",
+      "type": "CHAR",
+      "description": "deleted"
+    },
+    {
+      "name": "enabled",
+      "type": "CHAR",
+      "description": "enabled"
+    },
+    {
+      "name": "aPIGenerated",
+      "type": "CHAR",
+      "description": "aPIGenerated"
+    },
+    {
+      "name": "unknown1",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "futureUseInt1",
+      "type": "INTEGER",
+      "description": "futureUseInt1"
+    },
+    {
+      "name": "futureUseInt2",
+      "type": "INTEGER",
+      "description": "futureUseInt2"
+    },
+    {
+      "name": "futureUseInt3",
+      "type": "INTEGER",
+      "description": "futureUseInt3"
+    },
+    {
+      "name": "futureUseInt4",
+      "type": "INTEGER",
+      "description": "futureUseInt4"
+    },
+    {
+      "name": "futureUseInt5",
+      "type": "INTEGER",
+      "description": "futureUseInt5"
+    },
+    {
+      "name": "departmentID",
+      "type": "INTEGER",
+      "description": "departmentID"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "changeStamp"
+    },
+    {
+      "name": "dateTimeStamp",
+      "type": "LONG",
+      "description": "dateTimeStamp"
+    },
+    {
+      "name": "queryRuleName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "queryRuleName"
+    },
+    {
+      "name": "description",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "description"
+    },
+    {
+      "name": "FutureUseVarchar1",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarchar1"
+    },
+    {
+      "name": "FutureUseVarchar2",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarchar2"
+    },
+    {
+      "name": "FutureUseVarchar3",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarchar3"
+    }
+  ]
+}

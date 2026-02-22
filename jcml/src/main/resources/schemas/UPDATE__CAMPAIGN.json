@@ -1,0 +1,468 @@
+{
+  "messageType": "UPDATE__CAMPAIGN",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "objectAccessLevel"
+    },
+    {
+      "name": "campaignID",
+      "type": "INTEGER",
+      "description": "campaignID"
+    },
+    {
+      "name": "abandonPercent",
+      "type": "DOUBLE",
+      "description": "abandonPercent"
+    },
+    {
+      "name": "noAnswerCallback",
+      "type": "INTEGER",
+      "description": "noAnswerCallback"
+    },
+    {
+      "name": "busyCallback",
+      "type": "INTEGER",
+      "description": "busyCallback"
+    },
+    {
+      "name": "noAnswerRingLimit",
+      "type": "INTEGER",
+      "description": "noAnswerRingLimit"
+    },
+    {
+      "name": "maxAttempts",
+      "type": "INTEGER",
+      "description": "maxAttempts"
+    },
+    {
+      "name": "workStartHours",
+      "type": "INTEGER",
+      "description": "workStartHours"
+    },
+    {
+      "name": "workStartMinutes",
+      "type": "INTEGER",
+      "description": "workStartMinutes"
+    },
+    {
+      "name": "workEndHours",
+      "type": "INTEGER",
+      "description": "workEndHours"
+    },
+    {
+      "name": "workEndMinutes",
+      "type": "INTEGER",
+      "description": "workEndMinutes"
+    },
+    {
+      "name": "homeStartHours",
+      "type": "INTEGER",
+      "description": "homeStartHours"
+    },
+    {
+      "name": "homeStartMinutes",
+      "type": "INTEGER",
+      "description": "homeStartMinutes"
+    },
+    {
+      "name": "homeEndHours",
+      "type": "INTEGER",
+      "description": "homeEndHours"
+    },
+    {
+      "name": "homeEndMinutes",
+      "type": "INTEGER",
+      "description": "homeEndMinutes"
+    },
+    {
+      "name": "leaveMessageEnabled",
+      "type": "CHAR",
+      "description": "leaveMessageEnabled"
+    },
+    {
+      "name": "enabled",
+      "type": "CHAR",
+      "description": "enabled"
+    },
+    {
+      "name": "deleted",
+      "type": "CHAR",
+      "description": "deleted"
+    },
+    {
+      "name": "iPAMDEnabled",
+      "type": "CHAR",
+      "description": "iPAMDEnabled"
+    },
+    {
+      "name": "unknown1",
+      "type": "SHORT",
+      "description": "padding?"
+    },
+    {
+      "name": "unknown2",
+      "type": "SHORT",
+      "description": "padding?"
+    },
+    {
+      "name": "maximumLineAgent",
+      "type": "DOUBLE",
+      "description": "maximumLineAgent"
+    },
+    {
+      "name": "linesPerAgent",
+      "type": "DOUBLE",
+      "description": "linesPerAgent"
+    },
+    {
+      "name": "abandonEnabled",
+      "type": "CHAR",
+      "description": "abandonEnabled"
+    },
+    {
+      "name": "homeEnabled",
+      "type": "CHAR",
+      "description": "homeEnabled"
+    },
+    {
+      "name": "workEnabled",
+      "type": "CHAR",
+      "description": "workEnabled"
+    },
+    {
+      "name": "busyRetryEnabled",
+      "type": "CHAR",
+      "description": "busyRetryEnabled"
+    },
+    {
+      "name": "maxBusyAttempts",
+      "type": "SHORT",
+      "description": "maxBusyAttempts"
+    },
+    {
+      "name": "callbackTimeLimit",
+      "type": "SHORT",
+      "description": "callbackTimeLimit"
+    },
+    {
+      "name": "minimumCallDuration",
+      "type": "SHORT",
+      "description": "minimumCallDuration"
+    },
+    {
+      "name": "sPClosedRecordCount",
+      "type": "SHORT",
+      "description": "sPClosedRecordCount"
+    },
+    {
+      "name": "answerDetectEnabled",
+      "type": "CHAR",
+      "description": "answerDetectEnabled"
+    },
+    {
+      "name": "exhaustedCallsEnabled",
+      "type": "CHAR",
+      "description": "exhaustedCallsEnabled"
+    },
+    {
+      "name": "edgeDetectEnabled",
+      "type": "CHAR",
+      "description": "edgeDetectEnabled"
+    },
+    {
+      "name": "quickDetectEnabled",
+      "type": "CHAR",
+      "description": "quickDetectEnabled"
+    },
+    {
+      "name": "sPClosedRecordEnabled",
+      "type": "CHAR",
+      "description": "sPClosedRecordEnabled"
+    },
+    {
+      "name": "personalizedCallbackEnabled",
+      "type": "CHAR",
+      "description": "personalizedCallbackEnabled"
+    },
+    {
+      "name": "releaseCallbackEnabled",
+      "type": "CHAR",
+      "description": "releaseCallbackEnabled"
+    },
+    {
+      "name": "useGMTFromRegionPrefix",
+      "type": "CHAR",
+      "description": "useGMTFromRegionPrefix"
+    },
+    {
+      "name": "iPTerminatingBeepDetect",
+      "type": "CHAR",
+      "description": "iPTerminatingBeepDetect"
+    },
+    {
+      "name": "waitForBusyRetry",
+      "type": "CHAR",
+      "description": "waitForBusyRetry"
+    },
+    {
+      "name": "disableCPA",
+      "type": "CHAR",
+      "description": "disableCPA"
+    },
+    {
+      "name": "closeAbandonedToIVR",
+      "type": "CHAR",
+      "description": "closeAbandonedToIVR"
+    },
+    {
+      "name": "enableRecordWaveFile",
+      "type": "CHAR",
+      "description": "enableRecordWaveFile"
+    },
+    {
+      "name": "enableMediaTermination",
+      "type": "CHAR",
+      "description": "enableMediaTermination"
+    },
+    {
+      "name": "rescheduleCallbackMode",
+      "type": "SHORT",
+      "description": "rescheduleCallbackMode"
+    },
+    {
+      "name": "campaignPurposeType",
+      "type": "INTEGER",
+      "description": "campaignPurposeType"
+    },
+    {
+      "name": "aMDTreatmentMode",
+      "type": "INTEGER",
+      "description": "aMDTreatmentMode"
+    },
+    {
+      "name": "abandonCustomerCallback",
+      "type": "INTEGER",
+      "description": "abandonCustomerCallback"
+    },
+    {
+      "name": "abandonedDialerCallback",
+      "type": "INTEGER",
+      "description": "abandonedDialerCallback"
+    },
+    {
+      "name": "answeringMachineCallback",
+      "type": "INTEGER",
+      "description": "answeringMachineCallback"
+    },
+    {
+      "name": "customerNotHomeCallback",
+      "type": "INTEGER",
+      "description": "customerNotHomeCallback"
+    },
+    {
+      "name": "dSTLocation",
+      "type": "INTEGER",
+      "description": "dSTLocation"
+    },
+    {
+      "name": "dSTLocation2",
+      "type": "INTEGER",
+      "description": "dSTLocation2"
+    },
+    {
+      "name": "futureUseInt1",
+      "type": "INTEGER",
+      "description": "futureUseInt1"
+    },
+    {
+      "name": "futureUseInt2",
+      "type": "INTEGER",
+      "description": "futureUseInt2"
+    },
+    {
+      "name": "futureUseInt3",
+      "type": "INTEGER",
+      "description": "futureUseInt3"
+    },
+    {
+      "name": "futureUseInt4",
+      "type": "INTEGER",
+      "description": "futureUseInt4"
+    },
+    {
+      "name": "futureUseInt5",
+      "type": "INTEGER",
+      "description": "futureUseInt5"
+    },
+
+    {
+      "name": "futureUseFloat1",
+      "type": "DOUBLE",
+      "description": "futureUseFloat1"
+    },
+    {
+      "name": "futureUseFloat2",
+      "type": "DOUBLE",
+      "description": "futureUseFloat2"
+    },
+    {
+      "name": "futureUseFloat3",
+      "type": "DOUBLE",
+      "description": "futureUseFloat3"
+    },
+    {
+      "name": "cancelledCallRetryTime",
+      "type": "INTEGER",
+      "description": "cancelledCallRetryTime"
+    },
+    {
+      "name": "cPAAnalysisPeriod",
+      "type": "INTEGER",
+      "description": "cPAAnalysisPeriod"
+    },
+    {
+      "name": "cPAMaxTermToneAnalysis",
+      "type": "INTEGER",
+      "description": "cPAMaxTermToneAnalysis"
+    },
+    {
+      "name": "predictiveCorrectionPace",
+      "type": "INTEGER",
+      "description": "predictiveCorrectionPace"
+    },
+    {
+      "name": "predictiveGain",
+      "type": "DOUBLE",
+      "description": "predictiveGain"
+    },
+    {
+      "name": "predictiveHistoricGain",
+      "type": "DOUBLE",
+      "description": "predictiveHistoricGain"
+    },
+    {
+      "name": "predictiveLowAbandonGain",
+      "type": "DOUBLE",
+      "description": "predictiveLowAbandonGain"
+    },
+    {
+      "name": "cancelRinging",
+      "type": "INTEGER",
+      "description": "cancelRinging"
+    },
+    {
+      "name": "cPAMinSilencePeriod",
+      "type": "INTEGER",
+      "description": "cPAMinSilencePeriod"
+    },
+    {
+      "name": "cPAMinimumValidSpeech",
+      "type": "INTEGER",
+      "description": "cPAMinimumValidSpeech"
+    },
+    {
+      "name": "cPAMaxTimeAnalysis",
+      "type": "INTEGER",
+      "description": "cPAMaxTimeAnalysis"
+    },
+    {
+      "name": "departmentID",
+      "type": "INTEGER",
+      "description": "departmentID"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "changeStamp"
+    },
+    {
+      "name": "dateTimeStamp",
+      "type": "LONG",
+      "description": "dateTimeStamp"
+    },
+    {
+      "name": "aPIGenerated",
+      "type": "CHAR",
+      "description": "aPIGenerated"
+    },
+    {
+      "name": "unknown3",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "unknown4",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "unknown5",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "startDate",
+      "type": "INTEGER",
+      "description": "startDate"
+    },
+    {
+      "name": "endDate",
+      "type": "INTEGER",
+      "description": "endDate"
+    },
+    {
+      "name": "unknown6",
+      "type": "INTEGER",
+      "description": "padding?"
+    },
+    {
+      "name": "campaignName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "campaignName"
+    },
+    {
+      "name": "Description",
+      "type": "STRING",
+      "description": "Description"
+    },
+    {
+      "name": "ConfigParam",
+      "type": "STRING",
+      "description": "ConfigParam"
+    },
+    {
+      "name": "PrefixDigits",
+      "type": "STRING",
+      "description": "PrefixDigits"
+    },
+    {
+      "name": "FutureUseVarchar1",
+      "type": "STRING",
+      "description": "FutureUseVarchar1"
+    },
+    {
+      "name": "FutureUseVarchar2",
+      "type": "STRING",
+      "description": "FutureUseVarchar2"
+    },
+    {
+      "name": "FutureUseVarchar3",
+      "type": "STRING",
+      "description": "FutureUseVarchar3"
+    },
+    {
+      "name": "dSTLocationName",
+      "type": "STRING",
+      "description": "dSTLocationName"
+    },
+    {
+      "name": "tZDisplayName",
+      "type": "STRING",
+      "description": "tZDisplayName"
+    }
+  ]
+}

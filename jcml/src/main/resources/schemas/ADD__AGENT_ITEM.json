@@ -1,0 +1,116 @@
+{
+  "messageType": "ADD__AGENT_ITEM",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "ObjectAccessLevel"
+    },
+    {
+      "name": "skillTargetID",
+      "type": "INTEGER",
+      "description": "SkillTargetID"
+    },
+    {
+      "name": "personID",
+      "type": "INTEGER",
+      "description": "PersonID"
+    },
+    {
+      "name": "agentDeskSettingsID",
+      "type": "INTEGER",
+      "description": "AgentDeskSettingsID"
+    },
+    {
+      "name": "scheduleID",
+      "type": "INTEGER",
+      "description": "ScheduleID"
+    },
+    {
+      "name": "peripheralID",
+      "type": "SHORT",
+      "description": "PeripheralID"
+    },
+    {
+      "name": "userDeletable",
+      "type": "CHAR",
+      "description": "UserDeletable"
+    },
+    {
+      "name": "unknown1",
+      "type": "BYTE",
+      "description": "Padding?"
+    },
+    {
+      "name": "deleted",
+      "type": "CHAR",
+      "description": "Deleted"
+    },
+    {
+      "name": "temporaryAgent",
+      "type": "CHAR",
+      "description": "TemporaryAgent"
+    },
+    {
+      "name": "agentStateTrace",
+      "type": "CHAR",
+      "description": "AgentStateTrace"
+    },
+    {
+      "name": "supervisorAgent",
+      "type": "CHAR",
+      "description": "SupervisorAgent"
+    },
+    {
+      "name": "defaultSkillGroup",
+      "type": "INTEGER",
+      "description": "DefaultSkillGroup"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    },
+    {
+      "name": "departmentID",
+      "type": "INTEGER",
+      "description": "DepartmentID"
+    },
+    {
+      "name": "dateTimeStamp",
+      "type": "LONG",
+      "description": "DateTimeStamp"
+    },
+    {
+      "name": "enterpriseName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "EnterpriseName"
+    },
+    {
+      "name": "description",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "Description"
+    },
+    {
+      "name": "configParam",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "ConfigParam"
+    },
+    {
+      "name": "peripheralName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "PeripheralName"
+    },
+    {
+      "name": "peripheralNumber",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "PeripheralNumber"
+    }
+  ]
+}

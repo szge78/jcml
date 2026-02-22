@@ -1,0 +1,26 @@
+{
+  "messageType": "ADD__AGENT_TEAM_MEMBER_ITEM",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "ObjectAccessLevel"
+    },
+    {
+      "name": "agentTeamID",
+      "type": "INTEGER",
+      "description": "AgentTeamID"
+    },
+    {
+      "name": "skillTargetID",
+      "type": "INTEGER",
+      "description": "SkillTargetID"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    }
+  ]
+}

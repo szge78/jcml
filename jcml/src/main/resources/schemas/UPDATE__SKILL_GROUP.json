@@ -1,0 +1,13 @@
+{
+  "messageType": "UPDATE__SKILL_GROUP",
+  "version": 1,
+  "fields": [
+    {
+      "name": "updateSkillGroupMemberItems",
+      "type": "OBJECT",
+      "isArray": true,
+      "nestedSchema": "UPDATE__SKILL_GROUP_ITEM",
+      "description": "Array of items"
+    }
+  ]
+}

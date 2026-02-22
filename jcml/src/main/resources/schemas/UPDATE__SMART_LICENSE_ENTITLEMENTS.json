@@ -1,0 +1,109 @@
+{
+  "messageType": "UPDATE__SMART_LICENSE_ENTITLEMENTS",
+  "version": 1,
+  "fields": [
+    {
+      "name": "smartLicenseEntitlementsTagID",
+      "type": "INTEGER",
+      "description": "SmartLicenseEntitlementsTagID"
+    },
+    {
+      "name": "peakUsage",
+      "type": "INTEGER",
+      "description": "PeakUsage"
+    },
+    {
+      "name": "outOfComplianceCount",
+      "type": "INTEGER",
+      "description": "outOfComplianceCount"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    },
+    {
+      "name": "dateTimeStamp",
+      "type": "LONG",
+      "description": "dateTimeStamp"
+    },
+    {
+      "name": "licenseType",
+      "type": "SHORT",
+      "description": "LicenseType?"
+    },
+    {
+      "name": "unknown1",
+      "type": "SHORT",
+      "description": "padding?"
+    },
+    {
+      "name": "lockUsage",
+      "type": "INTEGER",
+      "description": "LockUsage"
+    },
+    {
+      "name": "outOfCompliance",
+      "type": "INTEGER",
+      "description": "OutOfCompliance"
+    },
+    {
+      "name": "futureUseInt2",
+      "type": "INTEGER",
+      "description": "FutureUseInt2"
+    },
+    {
+      "name": "futureUseInt1",
+      "type": "INTEGER",
+      "description": "FutureUseInt1"
+    },
+    {
+      "name": "entitlementTag",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "EntitlementTag"
+    },
+    {
+      "name": "entitlementDisplayname",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "EntitlementDisplayname"
+    },
+    {
+      "name": "entitlementDescription",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "EntitlementDescription"
+    },
+    {
+      "name": "entitlementVersion",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "EntitlementVersion"
+    },
+    {
+      "name": "enforcementMode",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "EnforcementMode"
+    },
+    {
+      "name": "deploymentType",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "DeploymentType"
+    },
+    {
+      "name": "futureUseVarChar1",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "futureUseVarChar1"
+    },
+    {
+      "name": "futureUseVarChar2",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarChar2"
+    }
+  ]
+}

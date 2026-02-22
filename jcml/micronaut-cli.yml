@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: sk.concentra.jcml
+testFramework: spock
+sourceLanguage: java
+buildTool: gradle
+features: [app-name, data, data-jdbc, graalvm, gradle, http-client-test, java, java-application, jdbc-hikari, logback, micronaut-aot, micronaut-build, micronaut-http-validation, netty-server, reactor, readme, serialization-jackson, shade, spock, sqlserver, static-resources, test-resources, yaml, yaml-build]

@@ -1,0 +1,13 @@
+{
+  "messageType": "DELETE__PRECISION_QUEUE_STEP",
+  "version": 1,
+  "fields": [
+    {
+      "name": "deletePrecisionQueueStepItems",
+      "type": "OBJECT",
+      "isArray": true,
+      "nestedSchema": "DELETE__PRECISION_QUEUE_STEP_ITEM",
+      "description": "Array of items"
+    }
+  ]
+}

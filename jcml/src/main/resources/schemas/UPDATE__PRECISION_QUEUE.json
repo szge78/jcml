@@ -1,0 +1,103 @@
+{
+  "messageType": "UPDATE__PRECISION_QUEUE",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "objectAccessLevel"
+    },
+    {
+      "name": "precisionQueueID",
+      "type": "INTEGER",
+      "description": "PrecisionQueueID"
+    },
+    {
+      "name": "bucketIntervalID",
+      "type": "INTEGER",
+      "description": "BucketIntervalID"
+    },
+    {
+      "name": "deleted",
+      "type": "CHAR",
+      "description": "deleted"
+    },
+    {
+      "name": "unknown1",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "serviceLevelType",
+      "type": "SHORT",
+      "description": "ServiceLevelType"
+    },
+    {
+      "name": "agentOrdering",
+      "type": "INTEGER",
+      "description": "AgentOrdering"
+    },
+    {
+      "name": "callOrdering",
+      "type": "INTEGER",
+      "description": "CallOrdering"
+    },
+    {
+      "name": "serviceLevelThreshold",
+      "type": "INTEGER",
+      "description": "ServiceLevelThreshold"
+    },
+    {
+      "name": "forceExpandingQueue",
+      "type": "CHAR",
+      "description": "ForceExpandingQueue"
+    },
+    {
+      "name": "unknown2",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "unknown3",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "unknown4",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "changeStamp"
+    },
+    {
+      "name": "departmentID",
+      "type": "INTEGER",
+      "description": "departmentID"
+    },
+    {
+      "name": "dateTimeStamp",
+      "type": "LONG",
+      "description": "dateTimeStamp"
+    },
+    {
+      "name": "mRDomainID",
+      "type": "INTEGER",
+      "description": "MRDomainID"
+    },
+    {
+      "name": "enterpriseName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "EnterpriseName"
+    },
+    {
+      "name": "description",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "description"
+    }
+  ]
+}

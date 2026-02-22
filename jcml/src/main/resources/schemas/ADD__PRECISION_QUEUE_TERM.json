@@ -1,0 +1,13 @@
+{
+  "messageType": "ADD__PRECISION_QUEUE_TERM",
+  "version": 1,
+  "fields": [
+    {
+      "name": "addPrecisionQueueTermItems",
+      "type": "OBJECT",
+      "isArray": true,
+      "nestedSchema": "ADD__PRECISION_QUEUE_TERM_ITEM",
+      "description": "Array of items"
+    }
+  ]
+}

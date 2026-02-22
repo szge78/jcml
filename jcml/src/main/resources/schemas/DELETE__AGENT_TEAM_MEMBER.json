@@ -1,0 +1,13 @@
+{
+  "messageType": "DELETE__AGENT_TEAM_MEMBER",
+  "version": 1,
+  "fields": [
+    {
+      "name": "deleteAgentTeamMemberItems",
+      "type": "OBJECT",
+      "isArray": true,
+      "nestedSchema": "DELETE__AGENT_TEAM_MEMBER_ITEM",
+      "description": "Array of items"
+    }
+  ]
+}

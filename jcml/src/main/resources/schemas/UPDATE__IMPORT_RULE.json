@@ -1,0 +1,207 @@
+{
+  "messageType": "UPDATE__IMPORT_RULE",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "objectAccessLevel"
+    },
+    {
+      "name": "importRuleID",
+      "type": "INTEGER",
+      "description": "ImportRuleID"
+    },
+    {
+      "name": "importType",
+      "type": "INTEGER",
+      "description": "ImportType"
+    },
+    {
+      "name": "scheduleStartHours",
+      "type": "INTEGER",
+      "description": "scheduleStartHours"
+    },
+    {
+      "name": "scheduleStartMinutes",
+      "type": "INTEGER",
+      "description": "scheduleStartMinutes"
+    },
+    {
+      "name": "dayOfMonth",
+      "type": "INTEGER",
+      "description": "dayOfMonth"
+    },
+    {
+      "name": "enabled",
+      "type": "CHAR",
+      "description": "enabled"
+    },
+    {
+      "name": "delimiterType",
+      "type": "CHAR",
+      "description": "delimiterType"
+    },
+    {
+      "name": "overwriteEnabled",
+      "type": "CHAR",
+      "description": "overwriteEnabled"
+    },
+    {
+      "name": "mondayEnabled",
+      "type": "CHAR",
+      "description": "mondayEnabled"
+    },
+    {
+      "name": "tuesdayEnabled",
+      "type": "CHAR",
+      "description": "tuesdayEnabled"
+    },
+    {
+      "name": "wednesdayEnabled",
+      "type": "CHAR",
+      "description": "wednesdayEnabled"
+    },
+    {
+      "name": "thursdayEnabled",
+      "type": "CHAR",
+      "description": "thursdayEnabled"
+    },
+    {
+      "name": "fridayEnabled",
+      "type": "CHAR",
+      "description": "fridayEnabled"
+    },
+    {
+      "name": "saturdayEnabled",
+      "type": "CHAR",
+      "description": "saturdayEnabled"
+    },
+    {
+      "name": "sundayEnabled",
+      "type": "CHAR",
+      "description": "sundayEnabled"
+    },
+    {
+      "name": "monthlyEnabled",
+      "type": "CHAR",
+      "description": "monthlyEnabled"
+    },
+    {
+      "name": "deleted",
+      "type": "CHAR",
+      "description": "deleted"
+    },
+    {
+      "name": "renameEnabled",
+      "type": "CHAR",
+      "description": "renameEnabled"
+    },
+    {
+      "name": "filePollingEnabled",
+      "type": "CHAR",
+      "description": "filePollingEnabled"
+    },
+    {
+      "name": "sPPreImportEnabled",
+      "type": "CHAR",
+      "description": "sPPreImportEnabled"
+    },
+    {
+      "name": "sPPostImportEnabled",
+      "type": "CHAR",
+      "description": "sPPostImportEnabled"
+    },
+    {
+      "name": "renameMaxVersions",
+      "type": "SHORT",
+      "description": "renameMaxVersions"
+    },
+    {
+      "name": "aPIGenerated",
+      "type": "CHAR",
+      "description": "aPIGenerated"
+    },
+    {
+      "name": "futureUseInt1",
+      "type": "INTEGER",
+      "description": "futureUseInt1"
+    },
+    {
+      "name": "futureUseInt2",
+      "type": "INTEGER",
+      "description": "futureUseInt2"
+    },
+    {
+      "name": "futureUseInt3",
+      "type": "INTEGER",
+      "description": "futureUseInt3"
+    },
+    {
+      "name": "futureUseInt4",
+      "type": "INTEGER",
+      "description": "futureUseInt4"
+    },
+    {
+      "name": "futureUseInt5",
+      "type": "INTEGER",
+      "description": "futureUseInt5"
+    },
+    {
+      "name": "departmentID",
+      "type": "INTEGER",
+      "description": "departmentID"
+    },
+    {
+      "name": "unknown1",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    },
+    {
+      "name": "dateTimeStamp",
+      "type": "LONG",
+      "description": "dateTimeStamp"
+    },
+    {
+      "name": "importRuleName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "importRuleName"
+    },
+    {
+      "name": "filePath",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "filePath"
+    },
+    {
+      "name": "contactTableName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "contactTableName"
+    },
+    {
+      "name": "futureUseVarChar1",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "futureUseVarChar1"
+    },
+    {
+      "name": "futureUseVarChar2",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarChar2"
+    },
+    {
+      "name": "futureUseVarChar3",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarChar3"
+    }
+  ]
+}

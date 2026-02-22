@@ -1,0 +1,13 @@
+{
+  "messageType": "ADD__SKILL_GROUP_MEMBER",
+  "version": 1,
+  "fields": [
+    {
+      "name": "addSkillGroupMemberItems",
+      "type": "OBJECT",
+      "isArray": true,
+      "nestedSchema": "ADD__SKILL_GROUP_MEMBER_ITEM",
+      "description": "array of items"
+    }
+  ]
+}

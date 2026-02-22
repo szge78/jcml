@@ -1,0 +1,13 @@
+{
+  "messageType": "DELETE__AGENT_ATTRIBUTE",
+  "version": 1,
+  "fields": [
+    {
+      "name": "deleteAgentAttributeItems",
+      "type": "OBJECT",
+      "isArray": true,
+      "nestedSchema": "DELETE__AGENT_ATTRIBUTE_ITEM",
+      "description": "Array of items"
+    }
+  ]
+}

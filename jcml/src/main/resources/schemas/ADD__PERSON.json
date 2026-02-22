@@ -1,0 +1,13 @@
+{
+  "messageType": "ADD__PERSON",
+  "version": 1,
+  "fields": [
+    {
+      "name": "addPersonItems",
+      "type": "OBJECT",
+      "isArray": true,
+      "nestedSchema": "ADD__PERSON_ITEM",
+      "description": "Array of person items"
+    }
+  ]
+}

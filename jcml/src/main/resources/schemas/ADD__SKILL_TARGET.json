@@ -1,0 +1,13 @@
+{
+  "messageType": "ADD__SKILL_TARGET",
+  "version": 1,
+  "fields": [
+    {
+      "name": "addSkillTargetItems",
+      "type": "OBJECT",
+      "isArray": true,
+      "nestedSchema": "ADD__SKILL_TARGET_ITEM",
+      "description": "Array of items"
+    }
+  ]
+}

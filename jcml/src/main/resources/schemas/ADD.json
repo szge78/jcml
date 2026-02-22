@@ -1,0 +1,45 @@
+{
+  "messageType": "ADD",
+  "version": 1,
+  "fields": [
+    {
+      "name": "pid",
+      "type": "INTEGER",
+      "description": "pid"
+    },
+    {
+      "name": "machineName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "The machine name"
+    },
+    {
+      "name": "userDomain",
+      "type": "STRING",
+      "isArray": false,
+      "stringPadding": "ALIGN_4",
+      "description": "The user domain"
+    },
+    {
+      "name": "userName",
+      "type": "STRING",
+      "isArray": false,
+      "stringPadding": "ALIGN_4",
+      "description": "The user name"
+    },
+    {
+      "name": "processName",
+      "type": "STRING",
+      "isArray": false,
+      "stringPadding": "ALIGN_4",
+      "description": "The process name"
+    },
+    {
+      "name": "sqlServerUserName",
+      "type": "STRING",
+      "isArray": false,
+      "stringPadding": "ALIGN_4",
+      "description": "The SQL Server user name"
+    }
+  ]
+}

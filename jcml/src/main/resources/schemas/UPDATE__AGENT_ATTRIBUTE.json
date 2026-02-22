@@ -1,0 +1,38 @@
+{
+  "messageType": "UPDATE__AGENT_ATTRIBUTE",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "objectAccessLevel"
+    },
+    {
+      "name": "skillTargetID",
+      "type": "INTEGER",
+      "description": "AgentSkillTargetID"
+    },
+    {
+      "name": "attributeID",
+      "type": "INTEGER",
+      "description": "AttributeID"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    },
+    {
+      "name": "attributeValue",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "AttributeValue"
+    },
+    {
+      "name": "description",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "Description"
+    }
+  ]
+}

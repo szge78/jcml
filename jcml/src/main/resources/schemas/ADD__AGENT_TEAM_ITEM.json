@@ -1,0 +1,59 @@
+{
+  "messageType": "ADD__AGENT_TEAM_ITEM",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "ObjectAccessLevel"
+    },
+    {
+      "name": "agentTeamID",
+      "type": "INTEGER",
+      "description": "AgentTeamID"
+    },
+    {
+      "name": "peripheralID",
+      "type": "INTEGER",
+      "description": "PeripheralID"
+    },
+    {
+      "name": "priSupervisorSkillTargetID",
+      "type": "INTEGER",
+      "description": "PriSupervisorSkillTargetID"
+    },
+    {
+      "name": "dialedNumberID",
+      "type": "INTEGER",
+      "description": "DialedNumberID"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    },
+    {
+      "name": "departmentID",
+      "type": "INTEGER",
+      "description": "DepartmentID"
+    },
+    {
+      "name": "dateTimeStamp",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "DateTimeStamp"
+    },
+    {
+      "name": "enterpriseName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "EnterpriseName"
+    },
+    {
+      "name": "description",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "Description"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "messageType": "DELETE__PRECISION_QUEUE_TERM_ITEM",
+  "version": 1,
+  "fields": [
+    {
+      "name": "precisionQueueID",
+      "type": "INTEGER",
+      "description": "PrecisionQueueID"
+    },
+    {
+      "name": "precisionQueueTermID",
+      "type": "INTEGER",
+      "description": "PrecisionQueueTermID"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    }
+  ]
+}

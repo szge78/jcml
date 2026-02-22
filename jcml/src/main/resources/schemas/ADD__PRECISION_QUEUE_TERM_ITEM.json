@@ -1,0 +1,73 @@
+{
+  "messageType": "ADD__PRECISION_QUEUE_TERM_ITEM",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "ObjectAccessLevel"
+    },
+    {
+      "name": "precisionQueueTermID",
+      "type": "INTEGER",
+      "description": "PrecisionQueueTermID"
+    },
+    {
+      "name": "precisionQueueID",
+      "type": "INTEGER",
+      "description": "PrecisionQueueID"
+    },
+    {
+      "name": "precisionQueueStepID",
+      "type": "INTEGER",
+      "description": "PrecisionQueueStepID"
+    },
+    {
+      "name": "attributeID",
+      "type": "INTEGER",
+      "description": "AttributeID"
+    },
+    {
+      "name": "attributeSetID",
+      "type": "INTEGER",
+      "description": "AttributeSetID"
+    },
+    {
+      "name": "termOrder",
+      "type": "INTEGER",
+      "description": "TermOrder"
+    },
+    {
+      "name": "parenCount",
+      "type": "INTEGER",
+      "description": "ParenCount"
+    },
+    {
+      "name": "termRelation",
+      "type": "INTEGER",
+      "description": "TermRelation"
+    },
+    {
+      "name": "attributeRelation",
+      "type": "INTEGER",
+      "description": "AttributeRelation"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    },
+    {
+      "name": "value1",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "value1"
+    },
+    {
+      "name": "value2",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "value2"
+    }
+  ]
+}

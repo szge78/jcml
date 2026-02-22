@@ -1,0 +1,37 @@
+<configuration>
+    <if condition='property("HOSTNAME").equalsIgnoreCase("arcturus.concentra.local")'>
+    <then>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%cyan(%d{HH:mm:ss.SSS}) [%.10thread] %highlight(%-5level) %magenta(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+    </then>
+        <else>
+            <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <withJansi>false</withJansi>
+                <file>/tmp/jcml.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <!--  daily rollover  -->
+                    <fileNamePattern>/tmp/jcml.%d{yyyy-MM-dd}.log</fileNamePattern>
+                    <!--  keep 32 days' worth of history capped at 10GB total size  -->
+                    <maxHistory>32</maxHistory>
+                    <totalSizeCap>10GB</totalSizeCap>
+                </rollingPolicy>
+                <encoder>
+                    <pattern>%d{ISO8601} [%.10thread] %-5level %logger{36} - %msg%n</pattern>
+                </encoder>
+            </appender>
+<!--            <logger name="io.micronaut.http.client" level="TRACE"/>-->
+            <root level="DEBUG">
+                <appender-ref ref="FILE"/>
+            </root>
+        </else>
+    </if>
+</configuration>

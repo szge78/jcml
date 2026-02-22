@@ -1,0 +1,216 @@
+{
+  "messageType": "UPDATE__SMART_LICENSE_INFO",
+  "version": 1,
+  "fields": [
+    {
+      "name": "smartLicenseInfoID",
+      "type": "INTEGER",
+      "description": "smartLicenseInfoID"
+    },
+    {
+      "name": "smartLicenseServerId",
+      "type": "INTEGER",
+      "description": "smartLicenseServerId"
+    },
+    {
+      "name": "authorizationExpires",
+      "type": "INTEGER",
+      "description": "authorizationExpires"
+    },
+    {
+      "name": "daysLeftInEvaluationMode",
+      "type": "INTEGER",
+      "description": "daysLeftInEvaluationMode"
+    },
+    {
+      "name": "daysLeftInOutOfCompliance",
+      "type": "INTEGER",
+      "description": "daysLeftInOutOfCompliance"
+    },
+    {
+      "name": "evaluationExpiredTime",
+      "type": "INTEGER",
+      "description": "evaluationExpiredTime"
+    },
+    {
+      "name": "futureUseInt6",
+      "type": "INTEGER",
+      "description": "futureUseInt6"
+    },
+    {
+      "name": "futureUseDateTime1",
+      "type": "INTEGER",
+      "description": "futureUseDateTime1"
+    },
+    {
+      "name": "exportControlledAllow",
+      "type": "CHAR",
+      "description": "exportControlledAllow"
+    },
+    {
+      "name": "isAuthorizationFailed",
+      "type": "CHAR",
+      "description": "isAuthorizationFailed"
+    },
+    {
+      "name": "isRegistrationFailed",
+      "type": "CHAR",
+      "description": "isRegistrationFailed"
+    },
+    {
+      "name": "unknown1",
+      "type": "BYTE",
+      "description": "padding?"
+    },
+    {
+      "name": "lastAuthorizationAttempt",
+      "type": "INTEGER",
+      "description": "lastAuthorizationAttempt"
+    },
+    {
+      "name": "lastRenewalAttempt",
+      "type": "INTEGER",
+      "description": "lastRenewalAttempt"
+    },
+    {
+      "name": "nextAuthorizationAttempt",
+      "type": "INTEGER",
+      "description": "nextAuthorizationAttempt"
+    },
+    {
+      "name": "nextRenewalAttempt",
+      "type": "INTEGER",
+      "description": "nextRenewalAttempt"
+    },
+    {
+      "name": "registrationExpires",
+      "type": "INTEGER",
+      "description": "registrationExpires"
+    },
+    {
+      "name": "cssmAuthorizationStatus",
+      "type": "SHORT",
+      "description": "CssmAuthorizationStatus?"
+    },
+    {
+      "name": "unknown2",
+      "type": "SHORT",
+      "description": "padding?"
+    },
+    {
+      "name": "cssmRegistrationStatus",
+      "type": "SHORT",
+      "description": "CssmRegistrationStatus?"
+    },
+    {
+      "name": "unknown3",
+      "type": "SHORT",
+      "description": "padding?"
+    },
+    {
+      "name": "overageDays",
+      "type": "INTEGER",
+      "description": "overageDays"
+    },
+    {
+      "name": "overageDaysUpdatedTime",
+      "type": "INTEGER",
+      "description": "overageDaysUpdatedTime"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    },
+    {
+      "name": "dateTimeStamp",
+      "type": "LONG",
+      "description": "dateTimeStamp"
+    },
+    {
+      "name": "futureUseInt1",
+      "type": "INTEGER",
+      "description": "futureUseInt1"
+    },
+    {
+      "name": "futureUseInt2",
+      "type": "INTEGER",
+      "description": "futureUseInt2"
+    },
+    {
+      "name": "futureUseInt3",
+      "type": "INTEGER",
+      "description": "futureUseInt3"
+    },
+    {
+      "name": "futureUseInt4",
+      "type": "INTEGER",
+      "description": "futureUseInt4"
+    },
+    {
+      "name": "futureUseInt5",
+      "type": "INTEGER",
+      "description": "futureUseInt5"
+    },
+    {
+      "name": "smartAccount",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "smartAccount"
+    },
+    {
+      "name": "virtualAccount",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "VirtualAccount"
+    },
+    {
+      "name": "productInstance",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "ProductInstance"
+    },
+    {
+      "name": "authorizationFailedReason",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "AuthorizationFailedReason"
+    },
+    {
+      "name": "registrationFailedReason",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "RegistrationFailedReason"
+    },
+    {
+    "name": "futureUseVarChar1",
+    "type": "STRING",
+    "stringPadding": "ALIGN_4",
+    "description": "FutureUseVarChar1"
+    },
+    {
+      "name": "futureUseVarChar2",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarChar2"
+    },
+    {
+      "name": "futureUseVarChar3",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarChar3"
+    },
+    {
+      "name": "futureUseVarChar4",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarChar4"
+    },
+    {
+      "name": "futureUseVarChar5",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FutureUseVarChar5"
+    }
+  ]
+}

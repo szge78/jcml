@@ -1,0 +1,26 @@
+{
+  "messageType": "ADD__SKILL_GROUP_MEMBER_ITEM",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "objectAccessLevel"
+    },
+    {
+      "name": "agentSkillTargetID",
+      "type": "INTEGER",
+      "description": "AgentSkillTargetID"
+    },
+    {
+      "name": "skillGroupSkillTargetID",
+      "type": "INTEGER",
+      "description": "SkillGroupSkillTargetID"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    }
+  ]
+}

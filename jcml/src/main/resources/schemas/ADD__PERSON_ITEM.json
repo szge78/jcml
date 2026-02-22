@@ -1,0 +1,126 @@
+{
+  "messageType": "ADD__PERSON_ITEM",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "ObjectAccessLevel"
+    },
+    {
+      "name": "personID",
+      "type": "INTEGER",
+      "description": "PersonID"
+    },
+    {
+      "name": "passwordLastChangedTime",
+      "type": "INTEGER",
+      "description": "PasswordLastChangedTime"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    },
+    {
+      "name": "departmentID",
+      "type": "INTEGER",
+      "description": "DepartmentID"
+    },
+    {
+      "name": "dateTimeStamp",
+      "type": "LONG",
+      "description": "DateTimeStamp"
+    },
+    {
+      "name": "passwordChangeRequired",
+      "type": "SHORT",
+      "description": "PasswordChangeRequired"
+    },
+    {
+      "name": "ssoEnabled",
+      "type": "SHORT",
+      "description": "SSOEnabled"
+    },
+    {
+      "name": "loginEnabled",
+      "type": "CHAR",
+      "description": "LoginEnabled"
+    },
+    {
+      "name": "deleted",
+      "type": "CHAR",
+      "description": "Deleted"
+    },
+    {
+      "name": "verificationStatus",
+      "type": "CHAR",
+      "description": "VerificationStatus"
+    },
+    {
+      "name": "ecePerson",
+      "type": "CHAR",
+      "description": "ECEPerson"
+    },
+    {
+      "name": "firstName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "FirstName"
+    },
+    {
+      "name": "lastName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "LastName"
+    },
+    {
+      "name": "loginName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "LoginName"
+    },
+    {
+      "name": "loginNameShadow",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "LoginNameShadow"
+    },
+    {
+      "name": "password",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "Password"
+    },
+    {
+      "name": "description",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "Description"
+    },
+    {
+      "name": "screenName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "ScreenName"
+    },
+    {
+      "name": "emailAddress",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "EmailAddress"
+    },
+    {
+      "name": "languages",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "Languages"
+    },
+    {
+      "name": "enc2Password",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "Enc2Password"
+    }
+  ]
+}

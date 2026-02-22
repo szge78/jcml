@@ -1,0 +1,13 @@
+{
+  "messageType": "ADD__AGENT_TEAM",
+  "version": 1,
+  "fields": [
+    {
+      "name": "addAgentTeamItems",
+      "type": "OBJECT",
+      "isArray": true,
+      "nestedSchema": "ADD__AGENT_TEAM_ITEM",
+      "description": "Array of agent team items"
+    }
+  ]
+}

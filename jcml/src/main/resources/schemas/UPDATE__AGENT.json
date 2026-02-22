@@ -1,0 +1,116 @@
+{
+  "messageType": "UPDATE__AGENT",
+  "version": 1,
+  "fields": [
+    {
+      "name": "objectAccessLevel",
+      "type": "INTEGER",
+      "description": "objectAccessLevel"
+    },
+    {
+      "name": "skillTargetID",
+      "type": "INTEGER",
+      "description": "The agent's SkillTargetID"
+    },
+    {
+      "name": "personID",
+      "type": "INTEGER",
+      "description": "The agent's PersonID"
+    },
+    {
+      "name": "agentDeskSettingsID",
+      "type": "INTEGER",
+      "description": "The agent's AgentDeskSettingsID"
+    },
+    {
+      "name": "scheduleID",
+      "type": "INTEGER",
+      "description": "The agent's ScheduleID"
+    },
+    {
+      "name": "peripheralID",
+      "type": "SHORT",
+      "description": "The agent's PeripheralID"
+    },
+    {
+      "name": "userDeletable",
+      "type": "CHAR",
+      "description": "Y if deletable, N otherwise"
+    },
+    {
+      "name": "unknown1",
+      "type": "BYTE",
+      "description": "Padding?"
+    },
+    {
+      "name": "deleted",
+      "type": "CHAR",
+      "description": "Y if deleted, N otherwise"
+    },
+    {
+      "name": "temporaryAgent",
+      "type": "CHAR",
+      "description": "Y if temporaryAgent, N otherwise"
+    },
+    {
+      "name": "agentStateTrace",
+      "type": "CHAR",
+      "description": "Y if agentStateTrace is on, N otherwise"
+    },
+    {
+      "name": "supervisorAgent",
+      "type": "CHAR",
+      "description": "Y if agent is also a Supervisor, N otherwise"
+    },
+    {
+      "name": "defaultSkillGroup",
+      "type": "INTEGER",
+      "description": "defaultSkillGroup"
+    },
+    {
+      "name": "changeStamp",
+      "type": "INTEGER",
+      "description": "change stamp"
+    },
+    {
+      "name": "departmentID",
+      "type": "INTEGER",
+      "description": "department ID"
+    },
+    {
+      "name": "dateTimeStamp",
+      "type": "LONG",
+      "description": "dateTimeStamp"
+    },
+    {
+      "name": "enterpriseName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "The Agent's EnterpriseName"
+    },
+    {
+      "name": "configParam",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "The Agent's configParam"
+    },
+    {
+      "name": "description",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "The Agent's description"
+    },
+    {
+      "name": "peripheralName",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "The Agent's PeripheralName"
+    },
+    {
+      "name": "peripheralNumber",
+      "type": "STRING",
+      "stringPadding": "ALIGN_4",
+      "description": "The Agent's PeripheralNumber a.k.a. Login ID"
+    }
+  ]
+}
