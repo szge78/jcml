@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.concentra.jcml.pipeline.StreamAction;
+import sk.concentra.jcml.pipeline.PipelineAction;
 
 import java.util.*;
 
@@ -17,7 +17,7 @@ import java.util.*;
  * within the same session.</p>
  */
 @Singleton
-public class SortAction implements StreamAction {
+public class SortAction implements PipelineAction {
 
     private static final Logger log = LoggerFactory.getLogger(SortAction.class);
     private static final String SESSION_KEY_KEY = "sessionKey";

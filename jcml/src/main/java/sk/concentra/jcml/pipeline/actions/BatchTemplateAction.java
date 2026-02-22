@@ -8,7 +8,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.concentra.jcml.pipeline.StreamAction;
+import sk.concentra.jcml.pipeline.PipelineAction;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -58,7 +58,7 @@ import java.util.regex.Pattern;
  * envelope (entity maps excluded).</p>
  */
 @Singleton
-public class BatchTemplateAction implements StreamAction {
+public class BatchTemplateAction implements PipelineAction {
 
     private static final Logger log = LoggerFactory.getLogger(BatchTemplateAction.class);
     private static final String SESSION_KEY_KEY = "sessionKey";

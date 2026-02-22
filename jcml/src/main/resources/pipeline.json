@@ -4,7 +4,6 @@
       "name": "PreloadAllAgents",
       "className": "sk.concentra.jcml.pipeline.actions.EntityPreloadAction",
       "enabled": true,
-      "condition": "true",
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.Agent",
         "repositoryClassName": "sk.concentra.jcml.persistence.AgentRepository",
@@ -15,7 +14,6 @@
       "name": "PreloadAllAgentTeams",
       "className": "sk.concentra.jcml.pipeline.actions.EntityPreloadAction",
       "enabled": true,
-      "condition": "true",
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.AgentTeam",
         "repositoryClassName": "sk.concentra.jcml.persistence.AgentTeamRepository",
@@ -26,7 +24,6 @@
       "name": "PreloadAllAttributes",
       "className": "sk.concentra.jcml.pipeline.actions.EntityPreloadAction",
       "enabled": true,
-      "condition": "true",
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.Attribute",
         "repositoryClassName": "sk.concentra.jcml.persistence.AttributeRepository",
@@ -37,7 +34,6 @@
       "name": "PreloadAllSkillGroups",
       "className": "sk.concentra.jcml.pipeline.actions.EntityPreloadAction",
       "enabled": true,
-      "condition": "true",
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.SkillGroup",
         "repositoryClassName": "sk.concentra.jcml.persistence.SkillGroupRepository",
@@ -48,7 +44,6 @@
       "name": "PreloadAllPrecisionQueues",
       "className": "sk.concentra.jcml.pipeline.actions.EntityPreloadAction",
       "enabled": true,
-      "condition": "true",
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.PrecisionQueue",
         "repositoryClassName": "sk.concentra.jcml.persistence.PrecisionQueueRepository",
@@ -59,7 +54,6 @@
       "name": "PreloadAllCampaigns",
       "className": "sk.concentra.jcml.pipeline.actions.EntityPreloadAction",
       "enabled": true,
-      "condition": "true",
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.Campaign",
         "repositoryClassName": "sk.concentra.jcml.persistence.CampaignRepository",
@@ -70,7 +64,6 @@
       "name": "PreloadAllDialingModes",
       "className": "sk.concentra.jcml.pipeline.actions.EntityPreloadAction",
       "enabled": true,
-      "condition": "true",
       "params": {
         "entityClassName": "sk.concentra.jcml.persistence.DialingMode",
         "repositoryClassName": "sk.concentra.jcml.persistence.DialingModeRepository",
@@ -82,7 +75,6 @@
       "description": "Dumps the keys and sizes of the Session Context to the logs to verify preloading. Runs exactly once per session.",
       "className": "sk.concentra.jcml.pipeline.actions.ContextDumpAction",
       "enabled": true,
-      "condition": "true",
       "params": {
         "label": "POST-PRELOAD SNAPSHOT",
         "dumpGlobal": false,
@@ -95,9 +87,9 @@
       "enabled": true,
       "description": "Extracts cmlId from _header[1] and machineName, pid, processName, userDomain, userName into a map, stored in session context under key cml_<cmlId>",
       "className": "sk.concentra.jcml.pipeline.actions.CmlHeaderExtractorAction",
-      "condition": "true",
       "params": {
-        "filterCondition": "_messageType.equalsIgnoreCase('ADD')",
+        "filterField": "_messageType",
+        "filterValue": "ADD",
         "headerKey": "_header",
         "keyPrefix": "cml_",
         "cmlId": {
@@ -134,60 +126,18 @@
       }
     },
     {
-      "name": "UnwrapAgentAndPersonArrays",
+      "name": "UnwrapAllArrays",
       "className": "sk.concentra.jcml.pipeline.actions.ArrayUnwrapAction",
       "enabled": true,
-      "condition": "_messageType.in('ADD__AGENT', 'ADD__PERSON', 'ADD__SKILL_TARGET')",
       "params": {
-        "arraysToUnwrap": ["addAgentItems", "addPersonItems", "addSkillTargetItems"],
-        "fieldsToCopy": ["_header", "_dbMetadata", "_messageType"],
-        "indexFieldName": "_arrayIdx",
-        "arrayKeyFieldName": "_sourceArrayKeyFieldName"
-      }
-    },
-    {
-      "name": "UnwrapAgentTeamArrays",
-      "className": "sk.concentra.jcml.pipeline.actions.ArrayUnwrapAction",
-      "enabled": true,
-      "condition": "_messageType.in('ADD__AGENT_TEAM','DELETE__AGENT_TEAM_MEMBER','ADD__AGENT_TEAM_MEMBER')",
-      "params": {
-        "arraysToUnwrap": ["addAgentTeamItems","deleteAgentTeamMemberItems","addAgentTeamMemberItems"],
-        "fieldsToCopy": ["_header", "_dbMetadata", "_messageType"],
-        "indexFieldName": "_arrayIdx",
-        "arrayKeyFieldName": "_sourceArrayKeyFieldName"
-      }
-    },
-    {
-      "name": "UnwrapAgentAttributeArrays",
-      "className": "sk.concentra.jcml.pipeline.actions.ArrayUnwrapAction",
-      "enabled": true,
-      "condition": "_messageType.in('DELETE__AGENT_ATTRIBUTE', 'ADD__AGENT_ATTRIBUTE')",
-      "params": {
-        "arraysToUnwrap": ["deleteAgentAttributeItems", "addAgentAttributeItems"],
-        "fieldsToCopy": ["_header", "_dbMetadata", "_messageType"],
-        "indexFieldName": "_arrayIdx",
-        "arrayKeyFieldName": "_sourceArrayKeyFieldName"
-      }
-    },
-    {
-      "name": "UnwrapSkillGroupMemberArrays",
-      "className": "sk.concentra.jcml.pipeline.actions.ArrayUnwrapAction",
-      "enabled": true,
-      "condition": "_messageType.in('ADD__SKILL_GROUP_MEMBER', 'DELETE__SKILL_GROUP_MEMBER', 'UPDATE__SKILL_GROUP')",
-      "params": {
-        "arraysToUnwrap": ["addSkillGroupMemberItems", "deleteSkillGroupMemberItems", "updateSkillGroupMemberItems"],
-        "fieldsToCopy": ["_header", "_dbMetadata", "_messageType"],
-        "indexFieldName": "_arrayIdx",
-        "arrayKeyFieldName": "_sourceArrayKeyFieldName"
-      }
-    },
-    {
-      "name": "UnwrapPrecisionQueueArrays",
-      "className": "sk.concentra.jcml.pipeline.actions.ArrayUnwrapAction",
-      "enabled": true,
-      "condition": "_messageType.in('ADD__PRECISION_QUEUE_TERM', 'ADD__PRECISION_QUEUE_STEP', 'DELETE__PRECISION_QUEUE_TERM', 'DELETE__PRECISION_QUEUE_STEP')",
-      "params": {
-        "arraysToUnwrap": ["addPrecisionQueueTermItems", "addPrecisionQueueStepItems", "deletePrecisionQueueTermItems", "deletePrecisionQueueStepItems"],
+        "arraysToUnwrap": [
+          "addAgentItems", "addPersonItems", "addSkillTargetItems",
+          "addAgentTeamItems", "deleteAgentTeamMemberItems", "addAgentTeamMemberItems",
+          "deleteAgentAttributeItems", "addAgentAttributeItems",
+          "addSkillGroupMemberItems", "deleteSkillGroupMemberItems", "updateSkillGroupMemberItems",
+          "addPrecisionQueueTermItems", "addPrecisionQueueStepItems",
+          "deletePrecisionQueueTermItems", "deletePrecisionQueueStepItems"
+        ],
         "fieldsToCopy": ["_header", "_dbMetadata", "_messageType"],
         "indexFieldName": "_arrayIdx",
         "arrayKeyFieldName": "_sourceArrayKeyFieldName"
@@ -198,7 +148,6 @@
       "enabled": true,
       "description": "Convert DateTimeStamp to Unix timestamp (output: unixTimestamp) and also add human-readable timestamp (output: humanReadableTimestamp) in the zone specified in params.",
       "className": "sk.concentra.jcml.pipeline.actions.TimestampConverterAction",
-      "condition": "true",
       "params": {
         "inputFieldNames": ["DateTimeStamp", "dateTimeStamp"],
         "zoneIdForHumanReadableTimestamp": "Europe/Budapest",
@@ -211,7 +160,6 @@
       "description": "Enriches the CML data with machine and user information from the session context.",
       "className": "sk.concentra.jcml.pipeline.actions.SessionEnrichAction",
       "enabled": true,
-      "condition": "true",
       "params": {
         "prefix": "cml_",
         "idExpression": "_header[1]",
@@ -234,9 +182,14 @@
       "name": "ApplyTemplates",
       "className": "sk.concentra.jcml.pipeline.actions.BatchTemplateAction",
       "enabled": true,
-      "condition": "true",
       "params": {
         "rules": [
+          {
+            "condition": "_messageType.in('UPDATE__PRECISION_QUEUE')",
+            "templates": {
+              "_full_description": "PQ {{eval(concat('session.precisionQueues.', item.precisionQueueID)).enterpriseName}} ({{item.precisionQueueID}})"
+            }
+          },
           {
             "condition": "_messageType.in('ADD__PRECISION_QUEUE_TERM', 'DELETE__PRECISION_QUEUE_TERM', 'DELETE__PRECISION_QUEUE_STEP')",
             "templates": {
@@ -258,7 +211,7 @@
           {
             "condition": "_messageType.in('ADD__PRECISION_QUEUE_STEP')",
             "templates": {
-              "_full_description": "PQ '{{eval(concat('session.precisionQueues.', item.precisionQueueID)).enterpriseName}}' ({{item.precisionQueueID}}) waitTime: {{item.waitTime}}"
+              "_full_description": "PQ '{{eval(concat('session.precisionQueues.', item.precisionQueueID)).enterpriseName}}' ({{item.precisionQueueID}}) stepOrder: {{item.stepOrder}} nextStep: {{item.nextStep}} waitTime: {{item.waitTime}} considerIf: {{item.considerIf}}"
             }
           },
           {
@@ -298,7 +251,6 @@
       "name": "FinalSortAction",
       "className": "sk.concentra.jcml.pipeline.actions.SortAction",
       "enabled": true,
-      "condition": "true",
       "params": {
         "sortKeys": [
           {

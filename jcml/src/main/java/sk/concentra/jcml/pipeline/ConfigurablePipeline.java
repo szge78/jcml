@@ -1,9 +1,7 @@
 package sk.concentra.jcml.pipeline;
 
-import com.octomix.josson.Josson;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.annotation.Value;
-import io.micronaut.core.annotation.Nullable;
 import io.micronaut.runtime.context.scope.Refreshable;
 import io.micronaut.runtime.context.scope.refresh.RefreshEvent;
 import jakarta.inject.Singleton;
@@ -16,7 +14,6 @@ import io.micronaut.scheduling.annotation.Scheduled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.concentra.jcml.util.StringUtils;
-import sk.concentra.jcml.pipeline.StreamAction;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -103,9 +100,8 @@ public class ConfigurablePipeline {
             String className = stepNode.path("className").asText();
             Class<?> actionClass = Class.forName(className);
             PipelineAction action = (PipelineAction) applicationContext.getBean(actionClass);
-            String condition = stepNode.path("condition").asText("true");
             JsonNode params = stepNode.path("params").isObject() ? stepNode.path("params") : objectMapper.createObjectNode();
-            steps.add(new PipelineStep(name, description, className, action, enabled, condition, params));
+            steps.add(new PipelineStep(name, description, className, action, enabled, params));
             log.info("Loaded pipeline step class: {}; params: {}", className, params);
         }
         log.info("Loaded {} pipeline steps", steps.size());
@@ -172,37 +168,14 @@ public class ConfigurablePipeline {
 
     private List<ObjectNode> applyStep(List<ObjectNode> input, PipelineStep step,
                                        Map<String, Object> global, Map<String, Object> session) {
-        // StreamActions (barrier/collect actions: sort, extract, batch-template, etc.)
-        // require the full batch in a single call — they manage their own internal iteration.
-        // The step-level condition is intentionally skipped: StreamActions handle their own
-        // per-item filtering internally (e.g. BatchTemplateAction's rule conditions).
-        if (step.action() instanceof StreamAction) {
-            return step.action().process(input, global, session, step.params());
-        }
-
-        // Regular PipelineActions: filter by step condition per-item, call once per item.
-        List<ObjectNode> result = new ArrayList<>();
-        for (ObjectNode item : input) {
-            if (!evaluateCondition(step.condition(), item)) {
-                result.add(item);   // condition not met — pass through unchanged
-            } else {
-                result.addAll(step.action().process(List.of(item), global, session, step.params()));
-            }
-        }
+        long startNanos = System.nanoTime();
+        var sessionKey = (String) session.get(SESSION_KEY_KEY);
+        log.info("[{}] Applying step '{}' with {} items, session key '{}'", sessionKey, step.name(), input.size(), sessionKey );
+        var result = step.action().process(input, global, session, step.params());
+        log.info("[{}] Step '{}' completed in {}ms", sessionKey, step.name(), (System.nanoTime() - startNanos) / 1_000_000);
         return result;
-    }
+    } // applyStep
 
-    private boolean evaluateCondition(@Nullable String expr, ObjectNode item) {
-        if (expr == null) { return true; }
-        log.debug("\te: {} item.class: {} item: {}", expr, item.getClass(), item);
-        Josson josson = Josson.create(item);
-        JsonNode jsonNode = josson.getNode(expr);
-        var jsonNodeType = jsonNode != null ? jsonNode.getNodeType() : null;
-        log.debug("\te: {} jsonNode: {} nodeType: {}", expr, jsonNode, jsonNodeType);
-        var result = jsonNode != null && jsonNode.asBoolean();
-        log.debug("\te: {} result: {}", expr, result);
-        return result;
-    }
 }
 
 record PipelineStep(
@@ -211,6 +184,5 @@ record PipelineStep(
         String className,
         PipelineAction action,
         boolean enabled,
-        @Nullable String condition,
         JsonNode params
 ) {}

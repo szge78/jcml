@@ -2,11 +2,10 @@ package sk.concentra.jcml.pipeline.actions;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.octomix.josson.Josson;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sk.concentra.jcml.pipeline.StreamAction;
+import sk.concentra.jcml.pipeline.PipelineAction;
 
 import java.util.*;
 import java.util.TreeMap;
@@ -18,7 +17,7 @@ import java.util.TreeMap;
  * <p>Run-once guard ensures extraction happens exactly once per session.</p>
  */
 @Singleton
-public class CmlHeaderExtractorAction implements StreamAction {
+public class CmlHeaderExtractorAction implements PipelineAction {
 
     private static final Logger log = LoggerFactory.getLogger(CmlHeaderExtractorAction.class);
     private static final String SESSION_KEY_KEY    = "sessionKey";
@@ -49,17 +48,20 @@ public class CmlHeaderExtractorAction implements StreamAction {
         final String keyPrefix     = params.path("keyPrefix").asText(DEFAULT_KEY_PREFIX);
         final List<HeaderField> fields = parseFields(sessionKey, params.path("fields"));
 
-        final String filterCondition = params.path("filterCondition").asText(null);
-        if (filterCondition == null || filterCondition.isBlank()) {
-            log.warn("[{}] No 'filterCondition' specified in params — extracting from ALL items", sessionKey);
+        final String filterField = params.path("filterField").asText(null);
+        final String filterValue = params.path("filterValue").asText(null);
+        final boolean hasFilter  = filterField != null && !filterField.isBlank()
+                                && filterValue != null && !filterValue.isBlank();
+        if (!hasFilter) {
+            log.warn("[{}] No 'filterField'/'filterValue' specified in params — extracting from ALL items", sessionKey);
         }
 
-        log.debug("[{}] headerKey={}, cmlIdIndex={}, keyPrefix={}, filterCondition={}",
-                sessionKey, headerKey, cmlIdIndex, keyPrefix, filterCondition);
+        log.debug("[{}] headerKey={}, cmlIdIndex={}, keyPrefix={}, filterField={}, filterValue={}",
+                sessionKey, headerKey, cmlIdIndex, keyPrefix, filterField, filterValue);
 
         int matched = 0, extracted = 0;
         for (final ObjectNode node : input) {
-            if (filterCondition != null && !filterCondition.isBlank() && !evaluateCondition(filterCondition, node)) {
+            if (hasFilter && !node.path(filterField).asText("").equalsIgnoreCase(filterValue)) {
                 continue;
             }
             matched++;
@@ -107,16 +109,6 @@ public class CmlHeaderExtractorAction implements StreamAction {
         }
 
         return input; // all items pass through unchanged
-    }
-
-    private boolean evaluateCondition(final String expr, final ObjectNode item) {
-        try {
-            final JsonNode result = Josson.create(item).getNode(expr);
-            return result != null && result.asBoolean();
-        } catch (Exception e) {
-            log.warn("Condition evaluation failed for expr '{}': {}", expr, e.getMessage());
-            return false;
-        }
     }
 
     private boolean extractAndStore(
