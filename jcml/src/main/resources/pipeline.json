@@ -71,13 +71,13 @@
       }
     },
     {
-      "name": "PreloadAllPrecisionQueueSteps",
+      "name": "RunNicePrecisionQueueTermsPreload",
       "className": "sk.concentra.jcml.pipeline.actions.NativeSqlPreloadAction",
       "enabled": true,
       "params": {
-        "sessionContextKey": "precisionQueueSteps",
-        "nativeSql": "SELECT PrecisionQueueStepID, PrecisionQueueID, StepOrder, WaitTime, ConsiderIf, NextStep, Description FROM Precision_Queue_Step",
-        "idColumn": "PrecisionQueueStepID"
+        "sessionContextKey": "nicePrecisionQueueTerms",
+        "nativeSql": "SELECT pqt.PrecisionQueueTermID,  pqt.PrecisionQueueStepID, pqt.PrecisionQueueID, pqt.AttributeID, pqt.AttributeSetID, pqt.TermOrder, pqt.ParenCount, pqt.TermRelation, pqt.AttributeRelation, pqt.Value1, pqt.Value2, pqs.StepOrder, pqs.WaitTime, pqs.ConsiderIf, pqs.NextStep, pqs.Description, attr.EnterpriseName, attr.AttributeDataType, attr.MinimumValue, attr.MaximumValue, attr.DefaultValue, attr.AppearsOnDesktop, attr.SettableByAgent, attr.Description, attr.ChangeStamp, attr.Deleted, attr.DepartmentID, attr.DateTimeStamp FROM Precision_Queue_Term pqt LEFT OUTER JOIN Precision_Queue_Step pqs ON pqt.PrecisionQueueStepID = pqs.PrecisionQueueStepID LEFT OUTER JOIN Attribute attr ON pqt.AttributeID = attr.AttributeID",
+        "idColumn": "PrecisionQueueTermID"
       }
     },
     {
@@ -195,13 +195,37 @@
       "params": {
         "rules": [
           {
+            "condition": "_messageType.in('FIRST')",
+            "templates": {
+              "_full_description": "FIRST"
+            }
+          },
+          {
+            "condition": "_messageType.in('LAST')",
+            "templates": {
+              "_full_description": "LAST"
+            }
+          },
+          {
+            "condition": "_messageType.in('ADD')",
+            "templates": {
+              "_full_description": "Metadata cmlId: {{item._header[1]}} RK: {{item._dbMetadata.recoveryKey}}"
+            }
+          },
+           {
             "condition": "_messageType.in('UPDATE__PRECISION_QUEUE')",
             "templates": {
               "_full_description": "PQ {{eval(concat('session.precisionQueues.', item.precisionQueueID)).enterpriseName}} ({{item.precisionQueueID}})"
             }
           },
           {
-            "condition": "_messageType.in('ADD__PRECISION_QUEUE_TERM', 'DELETE__PRECISION_QUEUE_TERM', 'DELETE__PRECISION_QUEUE_STEP')",
+            "condition": "_messageType.in('ADD__PRECISION_QUEUE_TERM')",
+            "templates": {
+              "_full_description": "PQ {{eval(concat('session.precisionQueues.', item.precisionQueueID)).enterpriseName}} termOrder: {{item.termOrder}} precisionQueueTermID: {{item.precisionQueueTermID}} stepOrder: {{eval(concat('session.nicePrecisionQueueTerms.', item.precisionQueueTermID)).StepOrder}} waitTime: {{eval(concat('session.nicePrecisionQueueTerms.', item.precisionQueueTermID)).PrecisionQueueTermID}} attr: {{eval(concat('session.nicePrecisionQueueTerms.', item.precisionQueueTermID)).EnterpriseName}}"
+            }
+          },
+          {
+            "condition": "_messageType.in('DELETE__PRECISION_QUEUE_TERM', 'DELETE__PRECISION_QUEUE_STEP')",
             "templates": {
               "_full_description": "PQ {{eval(concat('session.precisionQueues.', item.precisionQueueID)).enterpriseName}} ({{item.precisionQueueID}})"
             }
@@ -210,6 +234,18 @@
             "condition": "_messageType.in('UPDATE__CAMPAIGN')",
             "templates": {
               "_full_description": "Kampaň {{eval(concat('session.campaigns.', item.campaignID)).campaignName}}"
+            }
+          },
+          {
+            "condition": "_messageType.in('UPDATE__PERSON')",
+            "templates": {
+              "_full_description": "Agent {{item.firstName}} {{item.lastName}} ({{item.loginName}})"
+            }
+          },
+          {
+            "condition": "_messageType.in('UPDATE__AGENT')",
+            "templates": {
+              "_full_description": "Agent {{item.enterpriseName}} [{{item.peripheralNumber}}]"
             }
           },
           {

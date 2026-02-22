@@ -74,8 +74,9 @@ public class BatchTemplateAction implements PipelineAction {
             "eval\\(concat\\('session\\.([^.]+)\\.', item\\.([^)]+)\\)\\)\\.(.+)"
     );
 
-    /** Fast-path 2: direct item field. {@code item.<field>} */
-    private static final Pattern ITEM_FIELD_PATTERN = Pattern.compile("item\\.(.+)");
+    /** Fast-path 2: direct item field. {@code item.<field>} — simple identifiers only;
+     *  bracket/dot sub-expressions (e.g. {@code item._header[1]}) fall through to Josson. */
+    private static final Pattern ITEM_FIELD_PATTERN = Pattern.compile("item\\.(\\w+)");
 
     @Inject
     private ObjectMapper objectMapper;
