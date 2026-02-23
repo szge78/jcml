@@ -62,9 +62,11 @@ public class CxfServletRegistrar implements ApplicationEventListener<ServerStart
         try {
             final Bus bus = BusFactory.getDefaultBus();
 
-            // Check if already registered on this address
+            // Check if already registered on this address.
+            // ServerRegistry may be null if CXF bus-extensions.txt files were not merged
+            // correctly in the fat JAR (defensive guard; root fix is in shadowJar task).
             final ServerRegistry serverRegistry = bus.getExtension(ServerRegistry.class);
-            final boolean alreadyRegistered = serverRegistry.getServers().stream()
+            final boolean alreadyRegistered = serverRegistry != null && serverRegistry.getServers().stream()
                     .anyMatch(s -> address.equals(s.getEndpoint().getEndpointInfo().getAddress()));
 
             if (alreadyRegistered) {

@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.net.JarURLConnection;
 import java.net.URI;
 import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Enumeration;
@@ -35,17 +34,17 @@ public class SchemaRegistry {
 
     private final Map<String, MessageSchema> schemas = new ConcurrentHashMap<>();
     private final ObjectMapper objectMapper;
-    private final SchemaConfig config;
+    private final SchemaConfig schemaConfig;
     private volatile long lastLoadTime = 0;
 
     private final boolean isClasspathResource;
     private final String schemaLocation; // normalized: without "classpath:" prefix if classpath-based
 
-    public SchemaRegistry(ObjectMapper objectMapper, SchemaConfig config) {
+    public SchemaRegistry(ObjectMapper objectMapper, SchemaConfig schemaConfig) {
         this.objectMapper = objectMapper;
-        this.config = config;
+        this.schemaConfig = schemaConfig;
 
-        String configured = config.schemaDirectory();
+        String configured = schemaConfig.path();
         this.isClasspathResource = configured != null && configured.startsWith("classpath:");
         this.schemaLocation = isClasspathResource ? configured.substring("classpath:".length()) : configured;
 
@@ -67,17 +66,17 @@ public class SchemaRegistry {
      * Manually trigger schema reload.
      */
     public synchronized void refresh() {
-        log.info("Manually refreshing schemas from: {}", config.schemaDirectory());
+        log.info("Manually refreshing schemas from: {}", schemaConfig.path());
         loadSchemas();
     }
 
     /**
      * Automatically refresh schemas periodically if enabled.
      */
-    @Scheduled(fixedDelay = "${schema.auto-refresh-interval:60s}",
-            initialDelay = "${schema.auto-refresh-initial-delay:60s}")
+    @Scheduled(fixedDelay = "${schema.auto-refresh-interval:3600s}",
+            initialDelay = "${schema.auto-refresh-initial-delay:3600s}")
     public void autoRefresh() {
-        if (!config.autoRefresh()) {
+        if (!schemaConfig.autoRefresh()) {
             return;
         }
 
@@ -263,12 +262,12 @@ public class SchemaRegistry {
      */
     @ConfigurationProperties("schema")
     public record SchemaConfig(
-            String schemaDirectory,
+            String path,
             boolean autoRefresh
     ) {
         public SchemaConfig {
-            if (schemaDirectory == null || schemaDirectory.isBlank()) {
-                schemaDirectory = "./schemas";
+            if (path == null || path.isBlank()) {
+                path = "./schemas";
             }
         }
     }

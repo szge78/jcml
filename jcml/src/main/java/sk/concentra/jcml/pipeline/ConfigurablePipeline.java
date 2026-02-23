@@ -1,9 +1,10 @@
 package sk.concentra.jcml.pipeline;
 
 import io.micronaut.context.ApplicationContext;
-import io.micronaut.context.annotation.Value;
-import io.micronaut.runtime.context.scope.Refreshable;
+import io.micronaut.context.annotation.ConfigurationProperties;
+import io.micronaut.context.annotation.Requires;
 import io.micronaut.runtime.context.scope.refresh.RefreshEvent;
+import io.micronaut.runtime.event.annotation.EventListener;
 import jakarta.inject.Singleton;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +23,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Singleton
-@Refreshable
 public class ConfigurablePipeline {
 
     private static final Logger log = LoggerFactory.getLogger(ConfigurablePipeline.class);
@@ -30,6 +30,7 @@ public class ConfigurablePipeline {
     private final ApplicationEventPublisher<RefreshEvent> refreshPublisher;
     private final ApplicationContext applicationContext;
 
+    private final PipelineConfig pipelineConfig;
     private final String configPath;
     private final boolean isClasspathResource;
 
@@ -43,17 +44,28 @@ public class ConfigurablePipeline {
     public ConfigurablePipeline(ObjectMapper objectMapper,
                                 ApplicationEventPublisher<RefreshEvent> refreshPublisher,
                                 ApplicationContext applicationContext,
-                                @Value("${pipeline.config.path:classpath:pipeline.json}") String configPath) throws Exception {
+                                PipelineConfig pipelineConfig) throws Exception {
         this.objectMapper = objectMapper;
         this.refreshPublisher = refreshPublisher;
         this.applicationContext = applicationContext;
-        this.isClasspathResource = configPath.startsWith("classpath:");
-        this.configPath = isClasspathResource ? configPath.substring("classpath:".length()) : configPath;
+        this.pipelineConfig = pipelineConfig;
+        String configured = pipelineConfig.path();
+        this.isClasspathResource = configured != null && configured.startsWith("classpath:");
+        this.configPath = isClasspathResource ? configured.substring("classpath:".length()) : configured;
+        log.warn("Look, ma, I'm a constructor now!");
         reloadConfig();  // Initial load
     }
 
-    @Scheduled(fixedDelay = "120s", initialDelay = "120s")
+    @Scheduled(fixedDelay = "${pipeline.auto-refresh-interval:3600s}", initialDelay = "${pipeline.auto-refresh-initial-delay:3600s}")
     public void checkForConfigChanges() throws Exception {
+        log.info("pipelineConfig: {}", pipelineConfig);
+        if (!pipelineConfig.autoRefresh()) {
+            log.warn("Auto-refresh is disabled");
+            return;
+        } else {
+            log.warn("Auto-refresh is enabled");
+        }
+
         if (isClasspathResource) {
             log.debug("Skipping classpath resource check: {}", configPath);
             return;
@@ -71,7 +83,21 @@ public class ConfigurablePipeline {
         }
     }
 
+    @EventListener
+    public void onRefreshEvent(RefreshEvent event) throws Exception {
+        if (isClasspathResource) return;
+        File configFile = new File(configPath);
+        if (configFile.exists()) {
+            BasicFileAttributes attrs = Files.readAttributes(configFile.toPath(), BasicFileAttributes.class);
+            if (attrs.lastModifiedTime().toMillis() > lastModified) {
+                reloadConfig();
+                log.info("Reloaded pipeline configuration on RefreshEvent from {}", configFile.getAbsolutePath());
+            }
+        }
+    }
+
     private synchronized void reloadConfig() throws Exception {
+        log.warn("Reloading pipeline configuration from {}", configPath);
         JsonNode config;
         if (isClasspathResource) {
             java.io.InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(configPath);
@@ -176,7 +202,19 @@ public class ConfigurablePipeline {
         return result;
     } // applyStep
 
-}
+    @ConfigurationProperties("pipeline")
+    public record PipelineConfig(
+            String path,
+            boolean autoRefresh
+    ) {
+        public PipelineConfig {
+            if (path == null || path.isBlank()) {
+                path = "./pipeline.json";
+            } // if
+        } // constructor
+    } // class PipelineConfig
+
+} // class ConfigurablePipeline
 
 record PipelineStep(
         String name,

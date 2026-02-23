@@ -6,7 +6,7 @@ plugins {
     id("io.micronaut.aot") version "4.6.1"
 }
 
-version = "0.1.20260222.1543"
+version = "0.3.20260223.0932"
 group = "sk.concentra.jcml"
 
 repositories {
@@ -80,10 +80,18 @@ micronaut {
         optimizeClassLoading = true
         deduceEnvironment = true
         optimizeNetty = true
-        replaceLogbackXml = true
+        replaceLogbackXml = false
     }
 }
 
+
+tasks.named("shadowJar") {
+    // CXF registers Bus extensions via META-INF/cxf/bus-extensions.txt.
+    // Multiple CXF JARs each supply this file; Shadow must append them, not overwrite.
+    // Without this, Bus.getExtension(ServerRegistry.class) returns null at runtime.
+    mergeServiceFiles()
+    append('META-INF/cxf/bus-extensions.txt')
+}
 
 tasks.named("dockerfileNative") {
     jdkVersion = "25"

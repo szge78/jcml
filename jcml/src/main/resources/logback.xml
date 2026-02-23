@@ -15,11 +15,11 @@
     </then>
         <else>
             <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-                <withJansi>false</withJansi>
-                <file>/tmp/jcml.log</file>
-                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                    <!--  daily rollover  -->
-                    <fileNamePattern>/tmp/jcml.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <file>f:/tmp/jcml.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <!--  daily rollover, with %i index for within-day size rollovers  -->
+                    <fileNamePattern>f:/tmp/jcml.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                    <maxFileSize>500MB</maxFileSize>
                     <!--  keep 32 days' worth of history capped at 10GB total size  -->
                     <maxHistory>32</maxHistory>
                     <totalSizeCap>10GB</totalSizeCap>
@@ -29,7 +29,7 @@
                 </encoder>
             </appender>
 <!--            <logger name="io.micronaut.http.client" level="TRACE"/>-->
-            <root level="DEBUG">
+            <root level="INFO">
                 <appender-ref ref="FILE"/>
             </root>
         </else>
