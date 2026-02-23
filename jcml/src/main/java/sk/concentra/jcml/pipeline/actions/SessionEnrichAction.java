@@ -94,6 +94,9 @@ public class SessionEnrichAction implements PipelineAction {
                     floorEntry = occurrences.firstEntry();
                 }
                 final Object value = floorEntry.getValue();
+                // Stamp a stable transaction identity: cmlId + the ADD recoveryKey that owns this item.
+                // Downstream actions can group/filter by this field to isolate a single CML session.
+                item.put("_cmlTransactionId", id + "_" + floorEntry.getKey());
                 log.debug("[{}] Looking up '{}' for itemRK={} → matched occurrence at RK={}: {}",
                         sessionKey, fullKey, itemRecoveryKey, floorEntry.getKey(), value);
 
