@@ -118,9 +118,15 @@ public class ConfigurablePipeline {
         }
 
         steps = new ArrayList<>();
+        Set<String> seenNames = new HashSet<>();
         for (JsonNode stepNode : stepsNodeArray) {
             String name = stepNode.path("name").asText(null);
-            if (name == null || name.isBlank()) { continue; }
+            if (name == null || name.isBlank()) {
+                throw new IllegalStateException("pipeline.json: every step must have a non-blank 'name'");
+            }
+            if (!seenNames.add(name)) {
+                throw new IllegalStateException("pipeline.json: duplicate step name: '" + name + "'");
+            }
             String description = stepNode.path("description").asText("");
             boolean enabled = stepNode.path("enabled").asBoolean(true);
             String className = stepNode.path("className").asText();
