@@ -6,7 +6,7 @@ plugins {
     id("io.micronaut.aot") version "4.6.1"
 }
 
-version = "0.3.20260223.0932"
+version = "0.4.20260223.1034"
 group = "sk.concentra.jcml"
 
 repositories {

@@ -36,16 +36,19 @@ public class ArrayUnwrapAction implements PipelineAction {
 
         // Read configuration
         JsonNode arraysNode = params.path("arraysToUnwrap");
-        if (!arraysNode.isArray() || arraysNode.isEmpty()) {
-            log.warn("[{}] Missing or empty 'arraysToUnwrap', passing through unchanged", sessionKey);
+        if (!arraysNode.isObject() || arraysNode.isEmpty()) {
+            log.warn("[{}] 'arraysToUnwrap' must be a non-empty object (map), passing through", sessionKey);
             return input;
         }
 
-        List<String> arraysToUnwrap = new ArrayList<>();
-        arraysNode.forEach(n -> {
-            String name = n.asText(null);
-            if (name != null && !name.isBlank()) arraysToUnwrap.add(name);
+        Map<String, List<String>> arraysToUnwrapByType = new LinkedHashMap<>();
+        arraysNode.fields().forEachRemaining(e -> {
+            List<String> fields = new ArrayList<>();
+            e.getValue().forEach(n -> { if (n.asText(null) != null) fields.add(n.asText()); });
+            if (!fields.isEmpty()) arraysToUnwrapByType.put(e.getKey(), fields);
         });
+
+        String messageTypeField = params.path("messageTypeField").asText("_messageType");
 
         JsonNode copyNode = params.path("fieldsToCopy");
         Set<String> fieldsToCopy = new HashSet<>();
@@ -62,27 +65,23 @@ public class ArrayUnwrapAction implements PipelineAction {
         String arrayKeyFieldName = params.path("arrayKeyFieldName").asText(null);
         boolean preserveArrayKey = arrayKeyFieldName != null && !arrayKeyFieldName.trim().isEmpty();
 
-        if (arraysToUnwrap.isEmpty()) {
-            log.warn("[{}] No valid arrays to unwrap, skipping", sessionKey);
-            return input;
-        }
-
-        log.info("[{}] Unwrapping arrays: {}, copying fields: {}, index key name: {}",
-                sessionKey, arraysToUnwrap, fieldsToCopy, indexFieldName);
+        log.info("[{}] Unwrapping arrays for types: {}, copying fields: {}, index key name: {}",
+                sessionKey, arraysToUnwrapByType.keySet(), fieldsToCopy, indexFieldName);
 
         final String finalIndexFieldName    = indexFieldName;
         final String finalArrayKeyFieldName = arrayKeyFieldName;
 
         return input.parallelStream()
-                .flatMap(original -> processItem(original, arraysToUnwrap, fieldsToCopy,
-                        finalIndexFieldName, finalArrayKeyFieldName,
+                .flatMap(original -> processItem(original, arraysToUnwrapByType, messageTypeField,
+                        fieldsToCopy, finalIndexFieldName, finalArrayKeyFieldName,
                         preserveArrayKey, sessionKey).stream())
                 .collect(Collectors.toList());
     }
 
     private List<ObjectNode> processItem(
             ObjectNode original,
-            List<String> arraysToUnwrap,
+            Map<String, List<String>> arraysToUnwrapByType,
+            String messageTypeField,
             Set<String> fieldsToCopy,
             String indexFieldName,
             String arrayKeyFieldName,
@@ -90,6 +89,13 @@ public class ArrayUnwrapAction implements PipelineAction {
             String sessionKey
     ) {
         try {
+            String messageType = original.path(messageTypeField).asText(null);
+            List<String> arraysToUnwrap = messageType != null
+                    ? arraysToUnwrapByType.get(messageType) : null;
+            if (arraysToUnwrap == null || arraysToUnwrap.isEmpty()) {
+                return Collections.singletonList(original);  // fast path: ~95% of items
+            }
+
             // Collect target arrays
             Map<String, JsonNode> targetArrays = new LinkedHashMap<>();
             for (String arrayKey : arraysToUnwrap) {

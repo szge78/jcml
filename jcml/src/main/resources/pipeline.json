@@ -140,14 +140,24 @@
       "className": "sk.concentra.jcml.pipeline.actions.ArrayUnwrapAction",
       "enabled": true,
       "params": {
-        "arraysToUnwrap": [
-          "addAgentItems", "addPersonItems", "addSkillTargetItems",
-          "addAgentTeamItems", "deleteAgentTeamMemberItems", "addAgentTeamMemberItems",
-          "deleteAgentAttributeItems", "addAgentAttributeItems",
-          "addSkillGroupMemberItems", "deleteSkillGroupMemberItems", "updateSkillGroupMemberItems",
-          "addPrecisionQueueTermItems", "addPrecisionQueueStepItems",
-          "deletePrecisionQueueTermItems", "deletePrecisionQueueStepItems"
-        ],
+        "arraysToUnwrap": {
+          "ADD__AGENT":                   ["addAgentItems"],
+          "ADD__PERSON":                  ["addPersonItems"],
+          "ADD__SKILL_TARGET":            ["addSkillTargetItems"],
+          "ADD__AGENT_TEAM":              ["addAgentTeamItems"],
+          "ADD__AGENT_TEAM_MEMBER":       ["addAgentTeamMemberItems"],
+          "DELETE__AGENT_TEAM_MEMBER":    ["deleteAgentTeamMemberItems"],
+          "ADD__AGENT_ATTRIBUTE":         ["addAgentAttributeItems"],
+          "DELETE__AGENT_ATTRIBUTE":      ["deleteAgentAttributeItems"],
+          "ADD__SKILL_GROUP_MEMBER":      ["addSkillGroupMemberItems"],
+          "DELETE__SKILL_GROUP_MEMBER":   ["deleteSkillGroupMemberItems"],
+          "UPDATE__SKILL_GROUP_MEMBER":   ["updateSkillGroupMemberItems"],
+          "ADD__PRECISION_QUEUE_TERM":    ["addPrecisionQueueTermItems"],
+          "DELETE__PRECISION_QUEUE_TERM": ["deletePrecisionQueueTermItems"],
+          "ADD__PRECISION_QUEUE_STEP":    ["addPrecisionQueueStepItems"],
+          "DELETE__PRECISION_QUEUE_STEP": ["deletePrecisionQueueStepItems"]
+        },
+        "messageTypeField": "_messageType",
         "fieldsToCopy": ["_header", "_dbMetadata", "_messageType"],
         "indexFieldName": "_arrayIdx",
         "arrayKeyFieldName": "_sourceArrayKeyFieldName"
