@@ -143,6 +143,13 @@ public class MessageService {
         return pipeline.process(input);
     }
 
+    /**
+     * Like {@link #processMessages(List)}, but skips the named steps for this invocation.
+     */
+    public List<ObjectNode> processMessages(List<ObjectNode> input, Collection<String> ignoredStepNames) {
+        return pipeline.process(input, ignoredStepNames);
+    }
+
     private ObjectNode deserializeConfigMessageLog(ConfigMessageLog configMessageLog) {
         var dbRecoveryKey = configMessageLog.getRecoveryKey();
         var dbDateTime = configMessageLog.getDateTime();

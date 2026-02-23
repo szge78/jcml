@@ -7,6 +7,8 @@ import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import sk.concentra.jcml.soap.dto.GetReportResponse;
 
+import java.util.List;
+
 /**
  * JAX-WS Service Endpoint Interface (SEI) for the legacy getReport SOAP operation.
  * Namespace and service name match the legacy Grails SOAP endpoint.
@@ -23,5 +25,13 @@ public interface ReportWebService {
     GetReportResponse getReport(
             @WebParam(name = "dateFrom") String dateFrom,
             @WebParam(name = "dateTo")   String dateTo
+    );
+
+    @WebMethod(operationName = "getReportWithIgnoredSteps")
+    @WebResult(name = "getReportWithIgnoredStepsResponse", targetNamespace = "http://util.gcml.concentra.sk/")
+    GetReportResponse getReportWithIgnoredSteps(
+            @WebParam(name = "dateFrom")     String dateFrom,
+            @WebParam(name = "dateTo")       String dateTo,
+            @WebParam(name = "ignoredSteps") List<String> ignoredSteps
     );
 }

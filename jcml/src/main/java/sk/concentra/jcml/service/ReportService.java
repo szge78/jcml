@@ -17,6 +17,8 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -92,6 +94,20 @@ public class ReportService {
     }
 
     /**
+     * Accepts ISO-8601 datetime strings with optional timezone offset, skipping the named steps.
+     */
+    public GetReportResponse getReport(final String dateFrom, final String dateTo,
+            final List<String> ignoredSteps) {
+        final ZoneOffset displayOffset = extractOffset(dateFrom, defaultZone);
+        final LocalDateTime localFrom  = parseToLocal(dateFrom);
+        final LocalDateTime localTo    = parseToLocal(dateTo);
+        log.info("getReport(filtered): dateFrom='{}' → local {} ignoredSteps={}",
+                dateFrom, localFrom, ignoredSteps);
+        log.info("getReport(filtered): dateTo='{}'   → local {}", dateTo, localTo);
+        return getReport(localFrom, localTo, displayOffset, ignoredSteps);
+    }
+
+    /**
      * Fetches messages for the given local DateTime range, runs the pipeline,
      * and maps the result to a {@link GetReportResponse}.
      * Timestamps in the response are displayed in UTC.
@@ -141,6 +157,47 @@ public class ReportService {
         final List<ObjectNode> processed = messageService.processMessages(allMessages);
 
         log.info("getReport: pipeline produced {} items", processed.size());
+
+        final List<ReportRow> rows = processed.stream()
+                .map(node -> toReportRow(node, displayOffset))
+                .toList();
+
+        return new GetReportResponse(rows);
+    }
+
+    /**
+     * Like {@link #getReport(LocalDateTime, LocalDateTime, ZoneOffset)}, but skips the named
+     * pipeline steps for this invocation only.
+     */
+    public GetReportResponse getReport(final LocalDateTime dateFrom, final LocalDateTime dateTo,
+                                       final ZoneOffset displayOffset,
+                                       final Collection<String> ignoredSteps) {
+        log.info("getReport(filtered): dateFrom={}, dateTo={}, displayOffset={}, ignoredSteps={}",
+                dateFrom, dateTo, displayOffset, ignoredSteps);
+
+        final List<ObjectNode> allMessages = new ArrayList<>();
+        int pageNumber = 1;
+
+        while (true) {
+            final List<ObjectNode> chunk = messageService.getDeserializedMessagesByDateTimeRange(
+                    dateFrom, dateTo, pageNumber, deserializeChunkSize);
+
+            allMessages.addAll(chunk);
+            log.info("getReport(filtered): chunk {} - {} items deserialized (total: {})",
+                    pageNumber, chunk.size(), allMessages.size());
+
+            if (chunk.size() < deserializeChunkSize) break;
+            pageNumber++;
+        }
+
+        log.info("getReport(filtered): deserialized {} messages total", allMessages.size());
+
+        final Collection<String> effectiveIgnored =
+                ignoredSteps != null ? ignoredSteps : Collections.emptyList();
+        final List<ObjectNode> processed =
+                messageService.processMessages(allMessages, effectiveIgnored);
+
+        log.info("getReport(filtered): pipeline produced {} items", processed.size());
 
         final List<ReportRow> rows = processed.stream()
                 .map(node -> toReportRow(node, displayOffset))

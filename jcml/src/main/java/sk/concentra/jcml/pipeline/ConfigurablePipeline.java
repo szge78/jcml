@@ -145,17 +145,31 @@ public class ConfigurablePipeline {
      * A per-step and total summary report is logged at INFO level at the end of each run.
      */
     public List<ObjectNode> process(List<ObjectNode> input) {
+        return process(input, Collections.emptyList());
+    }
+
+    /**
+     * Like {@link #process(List)}, but skips any steps whose name appears in
+     * {@code ignoredStepNames} for this invocation only (does not modify config).
+     */
+    public List<ObjectNode> process(List<ObjectNode> input, Collection<String> ignoredStepNames) {
         long startNanos = System.nanoTime();
         Map<String, Object> sessionContext = new HashMap<>();
         String sessionKey = StringUtils.generateRandomString();
         sessionContext.put(SESSION_KEY_KEY, sessionKey);
         sessionContext.put(START_NANOS_KEY, startNanos);
 
+        Set<String> ignored = ignoredStepNames.isEmpty()
+                ? Collections.emptySet()
+                : new HashSet<>(ignoredStepNames);
+
         List<PipelineStep> enabledSteps = steps.stream()
                 .filter(PipelineStep::enabled)
+                .filter(s -> !ignored.contains(s.name()))
                 .toList();
 
-        log.info("[{}] Processing {} items with {} enabled pipeline steps", sessionKey, input.size(), enabledSteps.size());
+        log.info("[{}] Processing {} items with {} enabled pipeline steps ({} explicitly ignored)",
+                sessionKey, input.size(), enabledSteps.size(), ignored.size());
 
         // Per-step stats collected for the final report
         record StepStat(String name, int itemsIn, int itemsOut, long elapsedMs) {}

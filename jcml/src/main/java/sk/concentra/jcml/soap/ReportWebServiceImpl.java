@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import sk.concentra.jcml.service.ReportService;
 import sk.concentra.jcml.soap.dto.GetReportResponse;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * JAX-WS implementation of {@link ReportWebService}.
  * Delegates to {@link ReportService} — same logic as the REST controller.
@@ -32,5 +35,14 @@ public class ReportWebServiceImpl implements ReportWebService {
     public GetReportResponse getReport(final String dateFrom, final String dateTo) {
         log.info("SOAP getReport: dateFrom={}, dateTo={}", dateFrom, dateTo);
         return reportService.getReport(dateFrom, dateTo);
+    }
+
+    @Override
+    public GetReportResponse getReportWithIgnoredSteps(final String dateFrom, final String dateTo,
+            final List<String> ignoredSteps) {
+        log.info("SOAP getReportWithIgnoredSteps: dateFrom={}, dateTo={}, ignoredSteps={}",
+                dateFrom, dateTo, ignoredSteps);
+        return reportService.getReport(dateFrom, dateTo,
+                ignoredSteps != null ? ignoredSteps : Collections.emptyList());
     }
 }

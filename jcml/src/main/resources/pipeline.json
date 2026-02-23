@@ -211,6 +211,18 @@
       }
     },
     {
+      "name": "FilterSystemAndServiceAccountTransactions",
+      "description": "Drops all items belonging to a CML transaction if any item in that transaction matches a configured field==value condition (e.g. service accounts or unwanted message types). Must run after EnrichCmlDataWithMachineAndUserInformation.",
+      "className": "sk.concentra.jcml.pipeline.actions.CmlTransactionFilterAction",
+      "enabled": true,
+      "params": {
+        "conditions": [
+          "_userName==svc_call_center",
+          "_userName==SYSTEM"
+        ]
+      }
+    },
+    {
       "name": "ApplyTemplates",
       "className": "sk.concentra.jcml.pipeline.actions.BatchTemplateAction",
       "enabled": true,

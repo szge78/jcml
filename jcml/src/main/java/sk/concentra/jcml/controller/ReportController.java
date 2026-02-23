@@ -1,5 +1,6 @@
 package sk.concentra.jcml.controller;
 
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
@@ -10,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sk.concentra.jcml.service.ReportService;
 import sk.concentra.jcml.soap.dto.GetReportResponse;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * REST endpoint replicating the legacy SOAP getReport method.
@@ -38,5 +42,18 @@ public class ReportController {
     ) {
         log.info("REST getReport: dateFrom={}, dateTo={}", dateFrom, dateTo);
         return reportService.getReport(dateFrom, dateTo);
+    }
+
+    @Get(value = "/with-ignored-steps", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @ExecuteOn(TaskExecutors.BLOCKING)
+    public GetReportResponse getReportWithIgnoredSteps(
+            @QueryValue String dateFrom,
+            @QueryValue String dateTo,
+            @Nullable @QueryValue List<String> ignoredSteps
+    ) {
+        log.info("REST getReportWithIgnoredSteps: dateFrom={}, dateTo={}, ignoredSteps={}",
+                dateFrom, dateTo, ignoredSteps);
+        return reportService.getReport(dateFrom, dateTo,
+                ignoredSteps != null ? ignoredSteps : Collections.emptyList());
     }
 }
