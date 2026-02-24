@@ -25,6 +25,64 @@ External config override: set `-Dmicronaut.config.files=~/configs/jcml.yml`.
 `src/main/resources/application.yml` — server ports, DB connection, CML timezone, deserialization chunk size, schema and pipeline paths.
 `src/main/resources/pipeline.json` — ordered list of named, enable/disable-able steps. Each step names an Action class and carries its own `config` block.
 
+## Binary deserialization
+
+Each row in `Config_Message_Log` carries a binary blob. The deserializer reads a fixed 24-byte header (6 × 4-byte little-endian integers) first, then dispatches to a JSON schema matched by message type for the remainder of the buffer. All multi-byte integers are little-endian.
+
+### Schema files
+
+Schema files live in the `schemas/` directory (e.g. `ADD__AGENT.json`). Top-level fields:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `messageType` | yes | Matches the value in `Config_Message_Log` |
+| `version` | yes | Schema version string |
+| `description` | no | Human-readable note |
+| `fields` | yes | Ordered array of field descriptors (see below) |
+
+Each field descriptor:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `name` | yes | Output key name |
+| `type` | yes | One of the nine types listed below |
+| `isArray` | no | `true` → field is a variable-length array (must be last in schema) |
+| `nestedSchema` | no | Schema name to use for `OBJECT` fields |
+| `stringPadding` | no | Padding mode for `STRING` fields |
+| `description` | no | Human-readable note |
+
+### Field types
+
+| Type | Size | Notes |
+|------|------|-------|
+| `BYTE` | 1 byte | Unsigned |
+| `CHAR` | 1 byte | Unsigned |
+| `SHORT` | 2 bytes | Unsigned, little-endian |
+| `INTEGER` | 4 bytes | Unsigned, little-endian |
+| `LONG` | 8 bytes | Signed, little-endian |
+| `FLOAT` | 4 bytes | IEEE 754 |
+| `DOUBLE` | 8 bytes | IEEE 754 |
+| `STRING` | variable | 2-byte LE length prefix + data + null terminator + optional padding |
+| `OBJECT` | variable | Nested struct; references another schema via `nestedSchema` |
+
+### Arrays
+
+A field with `"isArray": true` must be the last field in its schema. The deserializer reads elements until the buffer is exhausted. For `OBJECT` arrays, each element is deserialized using the referenced nested schema.
+
+### String padding
+
+After reading `length + 1` bytes (null terminator), optional alignment padding is consumed. Modes: `NONE`, `ALIGN_2`, `ALIGN_4`, `FIXED_1`, `FIXED_2`, `FIXED_3`.
+
+### Schema path configuration
+
+`schema.path` in `application.yml` accepts either `classpath:schemas` (schemas bundled in the JAR) or an absolute filesystem path. Because `application.yml` itself can be externalized via `-Dmicronaut.config.files=`, deployments can point to a site-specific schema directory without rebuilding.
+
+`schema.auto-refresh: true` combined with `schema.auto-refresh-interval` allows live schema updates without a service restart.
+
+### Version compatibility
+
+The binary layout of `Config_Message_Log` blobs differs across UCCE/PCCE versions. Schemas must match the exact version deployed. When upgrading UCCE/PCCE, schema files may need to be revised.
+
 ## Pipeline actions
 
 Actions are chained sequentially; each receives the full list of items produced by the previous step.
@@ -90,3 +148,7 @@ Config keys: `label`, `dumpGlobal`, `dumpSession`, `keysOnly`.
 | Josson 1.5.1 | Expression language used in templates and enrichment |
 | Micrometer + Prometheus | Metrics |
 | Java Virtual Threads | Parallel deserialization and pipeline steps |
+
+## License
+
+MIT
