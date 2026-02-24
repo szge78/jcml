@@ -1,11 +1,63 @@
-#external: true
-#micronaut:
-#  application:
-#    name: jcml
-#datasources:
-#  default:
-#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#    db-type: mssql
-#    schema-generate: CREATE_DROP
-#    dialect: SQL_SERVER
-#test-resources.containers.mssql.accept-license: false
+micronaut:
+    application:
+        name: jcml                          # Service identifier
+    server:
+        port: 8080                          # HTTP listener port
+        host: 192.168.122.1                 # Bind only to this NIC (not 0.0.0.0)
+        max-request-size: 512MB             # Allows large SOAP/XML payloads
+        netty:
+            responses:
+                write-buffer-high-water-mark: 64MB   # Pause writes when outbound buffer hits this
+                write-buffer-low-water-mark: 32MB    # Resume writes once buffer drains to this
+            max-chunk-size: 10MB            # Max HTTP chunk for streaming large responses
+            max-header-size: 16KB           # Max total size of all request headers
+            child-options:
+                autoRead: true              # Netty reads from socket as fast as data arrives
+    metrics:
+        enabled: true                       # Enable Micrometer metrics collection
+        export:
+            prometheus:
+                enabled: true              # Expose /prometheus scrape endpoint
+    executors:
+        default:
+            type: virtual                  # Use JDK 21 virtual threads for blocking ops
+    http:
+        client:
+            read-timeout: 600s             # Max wait for response data from upstream
+            connect-timeout: 600s          # Max wait to establish connection to upstream
+
+datasources:
+    default:
+        driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver  # MS SQL JDBC driver
+        db-type: mssql                     # Datasource dialect hint for Micronaut Data
+        dialect: SQL_SERVER                # Hibernate/JDBC dialect for query generation
+        url: jdbc:sqlserver://10.20.30.40;databaseName=ucce_awdb;sendStringParametersAsUnicode=false;encrypt=false  # JDBC URL with Unicode and encryption disabled
+        username: icanread                 # DB login with read-only privileges
+        password: 'superSecretPassword'    # DB password (move to secrets manager in prod)
+        readOnly: true                     # Prevents accidental writes via this datasource
+test-resources.containers.mssql.accept-license: false  # Do not auto-accept MSSQL license in tests
+
+# WSDL is automatically available at endpoint + ?wsdl
+# i.e. http://192.168.122.1:8081/ws/report?wsdl
+soap:
+    scheme: http                           # Protocol for the CXF SOAP endpoint
+    host: 192.168.122.1                    # Host advertised in WSDL service URL
+    port: 8081                             # Separate port from the main Micronaut HTTP server
+    endpoint: '/ws/report'                 # URL path where the SOAP service is mounted
+
+cml:
+    db:
+        zoneId: 'Europe/Budapest'          # Interpret DB timestamps in this timezone
+        deserialize-chunk-size: 120000     # Rows fetched per chunk during deserialization
+
+schema:
+    path: classpath:schemas                # Location of JSON/XSD schema files
+    auto-refresh: true                     # Reload schemas without restart
+    auto-refresh-interval: 3600s          # How often to poll for schema changes
+    auto-refresh-initial-delay: 3600s     # Delay before the first refresh after startup
+
+pipeline:
+    path: classpath:pipeline.json          # Location of the pipeline definition file
+    auto-refresh: false                    # Pipeline changes require restart
+    auto-refresh-interval: 3600s          # (Unused while auto-refresh is false)
+    auto-refresh-initial-delay: 3600s     # (Unused while auto-refresh is false)
