@@ -1,6 +1,18 @@
 # jcml
 
-Reads the `Config_Message_Log` audit table from a Cisco UCCE/PCCE MS SQL database, deserializes the binary blobs stored in each row according to JSON schemas, converts the results to JSON, and runs them through a configurable pipeline of actions that filter, enrich, and reshape the data. The final result is served over REST (JSON/XML) and SOAP (XML).
+Reads the `Config_Message_Log` audit table from a Cisco UCCE/PCCE MS SQL database, deserializes the binary blobs stored in `ConfigMessage` according to JSON schemas, converts the results to JSON, and runs them through a configurable pipeline of actions that filter, enrich, and reshape the data. The final result is served over REST (JSON/XML) and SOAP (XML).
+
+The binary blobs stored in `Config_Message_Log.ConfigMessage` are most likely serialized C++ structs. Schemas are reverse-engineered from observed wire data, the Cisco *Database Schema Handbook*, and the output of the Cisco-provided `dumpcfg` diagnostic tool.
+
+The project is in no way affiliated with Cisco.
+
+The name "jcml" is a play on "JSON Cisco Message Log".
+
+## Goals
+
+- **Schema coverage** — identify every distinct `messageType` (every combination of `logOperation` × `tableName`) that can appear in `Config_Message_Log`.
+- **Version coverage** — produce and maintain schemas for all relevant Cisco UCCE/PCCE versions (and unsupported versions if needed), since the binary layout may differ between releases.
+
 
 ## Build & run
 
@@ -13,12 +25,12 @@ External config override: set `-Dmicronaut.config.files=~/configs/jcml.yml`.
 
 ## Endpoints
 
-| Protocol | Address | Notes |
-|----------|---------|-------|
-| REST | `http://<host>:8080/report?dateFrom=...&dateTo=...` | ISO-8601 date strings |
-| REST | `http://<host>:8080/report/with-ignored-steps?...&ignoredSteps=StepName` | Skip named steps at call time |
-| SOAP | `http://<host>:8081/ws/report` | WSDL at `?wsdl`; GZIP compressed |
-| Metrics | `http://<host>:8080/prometheus` | Micrometer / Prometheus |
+| Protocol | Address                                                | Notes                                                                                                          |
+|----------|--------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| REST | `/report?dateFrom=...&dateTo=...`                      | ISO-8601 date strings                                                                                          |
+| REST | `/report/with-ignored-steps?...&ignoredSteps=StepName` | Skip named steps at call time                                                                                  |
+| SOAP | `/ws/report`                                           | WSDL at `?wsdl`; GZIP compressed. Notice the SOAP interface uses a different port (defined in application.yml) |
+| Metrics | `/prometheus`                                          | Micrometer / Prometheus                                                                                        |
 
 ## Configuration
 
@@ -27,11 +39,13 @@ External config override: set `-Dmicronaut.config.files=~/configs/jcml.yml`.
 
 ## Binary deserialization
 
-Each row in `Config_Message_Log` carries a binary blob. The deserializer reads a fixed 24-byte header (6 × 4-byte little-endian integers) first, then dispatches to a JSON schema matched by message type for the remainder of the buffer. All multi-byte integers are little-endian.
+Each row in `Config_Message_Log` carries a binary blob. The deserializer reads a fixed 24-byte header (6 × 4-byte little-endian integers) first, then dispatches to a JSON schema matched by message type for the remainder of the buffer.
 
 ### Schema files
 
-Schema files live in the `schemas/` directory (e.g. `ADD__AGENT.json`). Top-level fields:
+Schema files live in the `schemas/` directory (e.g. `ADD__AGENT.json`). A `messageType` is the concatenation of `logOperation` and `tableName` from `Config_Message_Log`, joined by a double underscore and uppercased: `{logOperation}__{tableName}`. For example, `logOperation = UPDATE` and `tableName = SKILL_GROUP` yield the message type `UPDATE__SKILL_GROUP`, stored in `schemas/UPDATE__SKILL_GROUP.json`.
+
+Top-level fields:
 
 | Field | Required | Description |
 |-------|----------|-------------|
@@ -42,14 +56,14 @@ Schema files live in the `schemas/` directory (e.g. `ADD__AGENT.json`). Top-leve
 
 Each field descriptor:
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `name` | yes | Output key name |
-| `type` | yes | One of the nine types listed below |
+| Field | Required | Description                                                        |
+|-------|----------|--------------------------------------------------------------------|
+| `name` | yes | Output key name                                                    |
+| `type` | yes | One of the nine types listed below                                 |
 | `isArray` | no | `true` → field is a variable-length array (must be last in schema) |
-| `nestedSchema` | no | Schema name to use for `OBJECT` fields |
-| `stringPadding` | no | Padding mode for `STRING` fields |
-| `description` | no | Human-readable note |
+| `nestedSchema` | no | Schema name to use for `OBJECT` fields                             |
+| `stringPadding` | no | Padding mode for `STRING` fields, default: ALIGN_4.                |
+| `description` | no | Human-readable note                                                |
 
 ### Field types
 
@@ -82,6 +96,8 @@ After reading `length + 1` bytes (null terminator), optional alignment padding i
 ### Version compatibility
 
 The binary layout of `Config_Message_Log` blobs differs across UCCE/PCCE versions. Schemas must match the exact version deployed. When upgrading UCCE/PCCE, schema files may need to be revised.
+
+Tested against UCCE 12.6.
 
 ## Pipeline actions
 
@@ -139,15 +155,47 @@ Config keys: `label`, `dumpGlobal`, `dumpSession`, `keysOnly`.
 
 ## Tech stack
 
-| | |
-|-|-|
-| Java 25 / Micronaut 4.6.1 | Runtime and DI framework |
-| Apache CXF 4.0.4 | SOAP/JAX-WS |
-| Micronaut Data JDBC | DB access (MS SQL Server) |
-| Jackson | JSON serialization |
-| Josson 1.5.1 | Expression language used in templates and enrichment |
-| Micrometer + Prometheus | Metrics |
-| Java Virtual Threads | Parallel deserialization and pipeline steps |
+|                            | |
+|----------------------------|-|
+| Java 25 / Micronaut 4.10.7 | Runtime and DI framework |
+| Apache CXF 4.0.4           | SOAP/JAX-WS |
+| Micronaut Data JDBC        | DB access (MS SQL Server) |
+| Jackson                    | JSON serialization |
+| Josson 1.5.1               | Expression language used in templates and enrichment |
+| Micrometer + Prometheus    | Metrics |
+| Java Virtual Threads       | Parallel deserialization and pipeline steps |
+
+## Contributing
+
+### Adding new schemas
+
+Each unrecognized `messageType` in `Config_Message_Log` is a gap in coverage. To add one:
+
+1. Capture raw blob data for the target `messageType` (e.g. by querying `Config_Message_Log` directly or using `dumpcfg`).
+2. Cross-reference field positions with the Cisco *Database Schema Handbook* for the matching UCCE/PCCE version.
+3. Write a `schemas/{logOperation}__{tableName}.json` file following the schema format described above (field types, ordering, padding modes).
+4. Iterate: run jcml against live or captured data, compare deserialized output against expected values, adjust field types and padding until the output is correct.
+5. Open a pull request with the new schema file and a brief description of the message type and version tested against.
+
+### Adding new pipeline Actions
+
+Actions live in `src/main/java/…/pipeline/actions/`. To add one:
+
+1. Create a class that implements the `PipelineAction` interface (look at existing actions for the pattern).
+2. Declare it as a Micronaut bean (`@Singleton` or `@Prototype`).
+3. Read any action-specific settings from the `config` block passed to `execute()`.
+4. Register the new class name in `pipeline.json` as a step.
+5. Open a pull request with the implementation and, if applicable, a sample `pipeline.json` snippet showing its config keys.
+
+### No programming experience? Provide data access
+
+Schema reverse-engineering requires access to a live or archived Cisco UCCE/PCCE system. If you have access to such a system but not the time or skills to write schemas yourself, you can still contribute by:
+
+- Sharing sanitized or anonymized `Config_Message_Log` exports (binary blobs + `logOperation`/`tableName` columns) for message types not yet covered.
+- Running `dumpcfg` and sharing its output for specific object types.
+- Providing version information (UCCE/PCCE release, patch level) alongside the captured data.
+
+Open an issue to discuss how to share data safely.
 
 ## License
 
