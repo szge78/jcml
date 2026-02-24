@@ -13,3 +13,7 @@ out/
 .settings
 .classpath
 .factorypath
+src/test/
+gradle/wrapper/
+gradlew
+gradlew.bat
